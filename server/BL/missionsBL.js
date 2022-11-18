@@ -8,7 +8,8 @@ exports.getMissions = () => {
             if(err) {
                 reject(err)
             } else {
-                resolve(data)
+                let dataSort = data.sort((a , b) => new Date(a.deadlineDate) - new Date(b.deadlineDate))
+                resolve(dataSort)
             }
         })
     })
@@ -26,7 +27,7 @@ exports.getMission = (id) => {
     })
 }
 
-exports.addMission = (data , url) => {
+exports.addMission = (data , files) => {
     return new Promise(async (resolve , reject) => {
         const checkMission = await missionsSchema.findOne({title : data.title , subject : data.subject})
         if(checkMission) {
@@ -39,7 +40,7 @@ exports.addMission = (data , url) => {
                 grade: data.grade,
                 subject: data.subject,
                 students: data.students,
-                files : url
+                files
             })
 
             newMission.save(async (err) => {
@@ -68,5 +69,22 @@ exports.deleteMission = (id) => {
                 resolve('deleted!!')
             }
         })
+    })
+}
+
+exports.removeFileFromMission = (data) => {
+    return new Promise(async (resolve , reject) => {
+        let getMissionToUpdate = await this.getMission(data.missionId)
+        let files = getMissionToUpdate.files
+        let filterFile = files.filter(i => i.id !== data.fileId)
+
+        missionsSchema.findByIdAndUpdate(data.missionId , {
+            files : filterFile
+        }, (err) => {
+            if(err) {
+                reject(err)
+            }
+        })
+        resolve(getMissionToUpdate)
     })
 }

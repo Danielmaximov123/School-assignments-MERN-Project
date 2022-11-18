@@ -42,7 +42,7 @@ const UploadPhoto = ({ auth }) => {
       setShowPic(selectedFile)
     }
     else if(selectedFile === "" && user?.profilePic === null) {
-      user?.gender === "men" ? setShowPic(profilePicMen) : setShowPic(profilePicWomen)
+      user?.gender === 10 ? setShowPic(profilePicMen) : setShowPic(profilePicWomen)
     } else if(selectedFile === "" && user?.profilePic !== null) {
       setShowPic(`${urlApi}/${user?.profilePic}`)
     } 

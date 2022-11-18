@@ -15,7 +15,7 @@ const missionSchema = new mongoose.Schema({
             files : [{ type : String }],
         }
     ],
-    files : [{ fileName : { type : String } , url : { type : String } }],
+    files : [{ fileName : { type : String } , path : { type : String } }],
     datePublication : { type : Date , default : new Date() }
 })
 

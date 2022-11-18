@@ -16,7 +16,6 @@ export const getMission = (id) => async dispatch => {
     dispatch({ type : 'GET_MISSION' , payload : resp.data })
     dispatch({ type : 'MISSION_LOADING' , payload : false })
 }
-
 export const getAddMission = (data) => async dispatch => {
     dispatch({ type : 'MISSION_LOADING' , payload : true })
     let resp = await axios.post(`${urlApi}/missions/upload-mission` , data , {
@@ -39,5 +38,12 @@ export const getDeleteMission = (id) => async dispatch => {
     dispatch({ type : 'MISSION_LOADING' , payload : true })
     await axios.delete(`${urlApi}/missions/${id}`)
     dispatch({ type : 'DELETE_MISSION' , payload : id })
+    dispatch({ type : 'MISSION_LOADING' , payload : false })
+}
+
+export const getRemoveFileFromMission = (data) => async dispatch => {
+    dispatch({ type : 'MISSION_LOADING' , payload : true })
+    // await axios.put(`${urlApi}/missions/remove-file/${data.missionId}` , data)
+    dispatch({ type : 'REMOVE_FILE_FROM_MISSION' , payload : data })
     dispatch({ type : 'MISSION_LOADING' , payload : false })
 }

@@ -5,7 +5,7 @@ import PersonAddAlt from '@mui/icons-material/PersonAddAlt';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useDispatch } from 'react-redux';
 
-const UserMenuComp = ({selectedIndex}) => {
+const UserMenuComp = ({selectedIndex , auth}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -26,7 +26,9 @@ const UserMenuComp = ({selectedIndex}) => {
             </ListItemButton>
         </ListItem>
     <Divider style={{width: '44%', marginLeft: 'auto', marginRight: 'auto', background: 'linear-gradient(229deg, transparent, #10c6cc42, transparent)', padding: '0.0589rem', borderColor: 'rgb(0 0 0 / 0%)'}}/>
-    <ListItem>
+    {
+      auth.userType !== 'student' &&
+      <ListItem>
             <ListItemButton style={{borderRadius : '0.563rem' , padding: '0.5rem 0.2rem'}} selected={selectedIndex === 5} onClick={() => navigate('new-user')}>
                     <ListItemIcon style={{minWidth: '2.5rem'}}>
                     <PersonAddAlt style={{fontSize: '1.5rem'}}/>
@@ -34,6 +36,7 @@ const UserMenuComp = ({selectedIndex}) => {
                   <Typography style={selectedIndex === 5 ? {fontSize : '1rem' , fontWeight : '600'} : {fontSize : '1rem' , padding : 0}}>משתמש חדש</Typography>
             </ListItemButton>
         </ListItem>
+    }
     <ListItem>
             <ListItemButton style={{borderRadius : '0.563rem' , padding: '0.5rem 0.2rem'}} selected={selectedIndex === 6} onClick={handleLogOut}>
                     <ListItemIcon style={{minWidth: '2.5rem'}}>

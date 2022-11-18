@@ -16,17 +16,25 @@ router.route('/:id').get(async (req , res) => {
 
 router.route('/upload-mission').post(upload.array('file' , 5) , async(req ,res) => {
     let data = JSON.parse(req.body.missionInfo)
-    let url = []
+    let files = []
     for (let i = 0; i < req.files.length; i++) {
-        url.push(req.files[i].path.replace("\\" , '/').replace("\\" , '/'))
+        let file = req.files[i]
+        let fileName = Buffer.from(file.originalname, 'latin1').toString('utf8')
+        let path = file.path.replace("\\" , '/').replace("\\" , '/')
+        files.push({ fileName , path })
     }
-    let resp = await missionBL.addMission(data , url)
+    let resp = await missionBL.addMission(data , files)
     res.send(resp)
 })
 
 router.route('/:id').delete(async (req ,res) => {
     let id = req.params.id
     let data = await missionBL.deleteMission(id)
+    res.send(data)
+})
+
+router.route('/remove-file/:id').put(async (req , res) => {
+    let data = await missionBL.removeFileFromMission(req.body)
     res.send(data)
 })
 

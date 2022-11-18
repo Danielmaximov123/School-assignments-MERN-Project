@@ -67,7 +67,7 @@ const NavSection = ({auth , user}) => {
           <Typography textAlign='center' variant='h5'>{user?.fName} {user?.lName}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <UserMenuComp selectedIndex={selectedIndex}/>
+          <UserMenuComp auth={auth} selectedIndex={selectedIndex}/>
         </AccordionDetails>
       </Accordion>
             </Box>

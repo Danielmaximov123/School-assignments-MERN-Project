@@ -31,12 +31,12 @@ const MissionHeader = (props) => {
               marginTop: "auto",
             }}
           >
-        <Grid item xs={5.5}>
+        <Grid item xs={6}>
         <Typography style={{marginBottom: '1rem'}} variant='h4'>
-          {props.auth?.fName} , זו היא המשימה שלך
+          {props?.auth?.fName} , זו היא המשימה שלך
           </Typography>
         </Grid>
-        <Grid item xs={4.5}>
+        <Grid item xs={6}>
         <Box
         style={{
           border: "1px solid rgba(2, 136, 209, 0.7)",
@@ -47,9 +47,9 @@ const MissionHeader = (props) => {
         }}
       >
         {
-            expiryDate === 'NaN/NaN/NaN , NaN:NaN' ? <Box style={{ textAlign: "center" }}>{progress}</Box> :
+            !props?.mission?.deadlineDate ? <Box style={{ textAlign: "center" }}>{progress}</Box> :
             <>
-            <Typography color="#0288d1"  variant='caption'>
+            <Typography color="#0288d1"  variant='subtitle1'>
            נותרו <CountdownTimerDate dateExpiry={props?.mission?.deadlineDate}/> להגשת המשימה <br/>
            בתאריך : {expiryDate}
         </Typography>

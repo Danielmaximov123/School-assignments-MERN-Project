@@ -19,8 +19,10 @@ const MissionPage = ({auth}) => {
     let subject = subjects.find((i) => i._id === mission?.subject);
 
     useEffect(() => {
-        dispatch(getMission(params.id))
+          dispatch(getMission(params.id))
     },[dispatch])
+
+    console.log(missionLoading);
 
     let studentMission = []
     if(mission.length !== 0) {
@@ -45,7 +47,6 @@ const MissionPage = ({auth}) => {
             style={{
               marginLeft: "auto",
               marginRight: "auto",
-              width : '85%',
               marginTop: "auto",
             }}
           >
@@ -54,8 +55,8 @@ const MissionPage = ({auth}) => {
                 mission && <MissionDetails auth={auth} subject={subject} studentMission={studentMission[0]}  /> 
               }
             </Grid>
-            <Grid item xs={4}><MissionDocument/></Grid>
-            <Grid item xs={10}><MissionDetails/></Grid>
+            <Grid item xs={6}><MissionDocument mission={mission} auth={auth}/></Grid>
+            <Grid item xs={12}><MissionDetails/></Grid>
             <Grid></Grid>
         </Grid>
           </>

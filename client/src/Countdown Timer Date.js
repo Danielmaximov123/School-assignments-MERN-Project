@@ -44,7 +44,7 @@ const countdownTimer = () => {
   
   useEffect(() => {
     countdownTimer();
-  });
+  },[dateExpiry]);
 
 
   return (

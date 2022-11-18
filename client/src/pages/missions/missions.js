@@ -1,11 +1,11 @@
-import { Box, Button, CircularProgress, Grid } from "@mui/material";
+import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSubjects } from "../../redux/actions/getSubjectsAction";
 import { useNavigate } from "react-router-dom";
 import MissionComp from "./mission";
-import { getAllMissions } from "../../redux/actions/getMissionAction";
+import { getAllMissions, getMission } from "../../redux/actions/getMissionAction";
 
 const Missions = ({ auth, user, users }) => {
   const missions = useSelector((state) => state.missions.mission);
@@ -32,7 +32,8 @@ const Missions = ({ auth, user, users }) => {
       i.students.map(j => auth.userId === j.studentId && mission.push(i))
       return mission
     })
-    setMissionUser(data.filter(item => item.length !== 0))
+    let dataCheck = data.filter(item => item.length !== 0)
+    setMissionUser(dataCheck)
   }, [missionLoading])
   
 
@@ -86,6 +87,13 @@ const Missions = ({ auth, user, users }) => {
                 })}
               </>
             )}
+            {
+              missions.length === 0 && <Box style={{marginRight : 'auto' , marginLeft : 'auto'}}>
+                <Typography variant="h4">
+                  אין משימות
+                </Typography>
+              </Box>
+            }
           </Grid>
         </>
       )}
