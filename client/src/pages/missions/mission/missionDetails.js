@@ -1,8 +1,9 @@
 import { Box, Chip, ListItemText, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 
-const MissionDetails = ({user , subject , studentMission}) => {
-    const mission = useSelector(state => state.missions.missionSingle)
+const MissionDetails = ({user , subject , studentMission, mission}) => {
+
+  console.log(studentMission);
 
   return (
     <Box
@@ -50,8 +51,9 @@ const MissionDetails = ({user , subject , studentMission}) => {
                   {mission?.description}
             </Typography>
         </Box>
-        <Box margin='2rem' textAlign='center'>
-        <Chip label={studentMission?.completed ? 'הוגשה המשימה' : 'לא הוגשה משימה'} color={studentMission?.completed ? 'success' : 'error'} />
+        <Box style={{direction: 'rtl', margin: '2rem', textAlign: 'center'}}>
+        <Chip style={{margin : '0.3rem'}} label={studentMission?.completed ? 'הוגשה המשימה' : 'לא הוגשה משימה'} color={studentMission?.completed ? 'success' : 'error'} />
+        <Chip style={{margin : '0.3rem'}} label={studentMission?.grade ? studentMission?.grade : 'טרם התקבל ציון'} color={studentMission?.grade ? 'success' : 'error'} />
         </Box>
     </Box>
   );

@@ -1,30 +1,24 @@
 const initialState = {
-    mission: [],
-    missionSingle : [],
+    missions: [],
     missionLoading: false
 }
 
 const missionReduces = (state = initialState, action) => {
     switch (action.type) {
         case 'GET_MISSIONS':
-            state = { ...state , mission : action.payload }    
-            return state
-        case 'GET_MISSION':
-            state = { ...state , missionSingle : action.payload }    
+            state = { ...state , missions : action.payload }    
             return state
         case 'ADD_MISSION' : 
-            state = { ...state , mission : [ ...state.mission, action.payload ] }
+            state = { ...state , missions : [ ...state.missions, action.payload ] }
             return state
         case 'REMOVE_FILE_FROM_MISSION' :
-            let getMission = state.missionSingle
-            console.log(getMission._id);
-            // let removeFile = state.missionSingle.files.filter(file => file._id !== action.payload.fileId)
-            // state.missionSingle.files = removeFile
-            // console.log(state.missionSingle);
-            // state = { ...state, mission : state.missionSingle.map(mission => mission._id === getMission._id ? getMission : mission)}
+            let getMission = state.missions.find(mission => mission._id === action.payload.missionId)
+            let removeFile = getMission.files.filter(file => file._id !== action.payload.fileId)
+            getMission.files = removeFile
+            state = { ...state, missions : state.missions.map(mission => mission._id === getMission._id ? getMission : mission)}
             return state
         case 'DELETE_MISSION':
-            state = { ...state , mission : state.mission.filter(m => m._id !== action.payload) }
+            state = { ...state , missions : state.missions.filter(m => m._id !== action.payload) }
             return state
         case 'MISSION_LOADING':
             state = { ...state, missionLoading: action.payload }

@@ -11,21 +11,17 @@ import MissionDocument from './missionDocument';
 
 const MissionPage = ({auth}) => {
     const dispatch = useDispatch()
-    const params = useParams()
+    const { id } = useParams()
     const subjects = useSelector((state) => state.subjects.subjects);
-    const mission = useSelector(state => state.missions.missionSingle)
+    const missions = useSelector(state => state.missions.missions)
     const missionLoading = useSelector((state) => state.missions.missionLoading)
 
-    let subject = subjects.find((i) => i._id === mission?.subject);
-
-    useEffect(() => {
-          dispatch(getMission(params.id))
-    },[dispatch])
-
-    console.log(missionLoading);
-
+    
+    let mission = missions?.find(mission => mission?._id === id)
+    let subject = subjects?.find((i) => i._id === mission?.subject);
+    
     let studentMission = []
-    if(mission.length !== 0) {
+    if(mission?.length !== 0) {
       mission?.students?.filter(item => item.studentId === auth.userId && studentMission.push(item))
     }
 
@@ -52,7 +48,7 @@ const MissionPage = ({auth}) => {
           >
             <Grid item xs={6}>
               {
-                mission && <MissionDetails auth={auth} subject={subject} studentMission={studentMission[0]}  /> 
+                mission && <MissionDetails auth={auth} subject={subject} studentMission={studentMission[0]} mission={mission}  /> 
               }
             </Grid>
             <Grid item xs={6}><MissionDocument mission={mission} auth={auth}/></Grid>

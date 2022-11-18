@@ -1,6 +1,7 @@
 const { sendMissionEmail } = require('../mails/new-Mission-emailBL')
 const missionsSchema = require('../models/missionsSchema')
 const { getUser } = require('./usersBL')
+const fs = require('fs')
 
 exports.getMissions = () => {
     return new Promise((resolve , reject) => {
@@ -76,15 +77,22 @@ exports.removeFileFromMission = (data) => {
     return new Promise(async (resolve , reject) => {
         let getMissionToUpdate = await this.getMission(data.missionId)
         let files = getMissionToUpdate.files
-        let filterFile = files.filter(i => i.id !== data.fileId)
+        let getFile = files.find(file => file.id === data.fileId)
 
-        missionsSchema.findByIdAndUpdate(data.missionId , {
-            files : filterFile
-        }, (err) => {
+        fs.unlink(getFile.path , err => {
             if(err) {
                 reject(err)
+            } else {
+                let filterFile = files.filter(i => i.id !== data.fileId)
+                missionsSchema.findByIdAndUpdate(data.missionId , {
+                    files : filterFile
+                }, (err) => {
+                    if(err) {
+                        reject(err)
+                    }
+                })
+                resolve(getMissionToUpdate)
             }
         })
-        resolve(getMissionToUpdate)
     })
 }

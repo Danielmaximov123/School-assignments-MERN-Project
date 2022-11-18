@@ -43,7 +43,8 @@ export const getDeleteMission = (id) => async dispatch => {
 
 export const getRemoveFileFromMission = (data) => async dispatch => {
     dispatch({ type : 'MISSION_LOADING' , payload : true })
-    // await axios.put(`${urlApi}/missions/remove-file/${data.missionId}` , data)
+    await axios.put(`${urlApi}/missions/remove-file/${data.missionId}` , data)
     dispatch({ type : 'REMOVE_FILE_FROM_MISSION' , payload : data })
+    toast.success('הקובץ נמחק בהצלחה !' , {position : toast.POSITION.BOTTOM_RIGHT})
     dispatch({ type : 'MISSION_LOADING' , payload : false })
 }

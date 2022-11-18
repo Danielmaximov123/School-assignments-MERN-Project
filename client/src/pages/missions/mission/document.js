@@ -12,11 +12,7 @@ import { getRemoveFileFromMission } from './../../../redux/actions/getMissionAct
 const Document = ({ document , auth }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch()
-  const params = useParams()
-
-  const deleteFile = () => {
-    console.log(document);
-  }
+  const { id } = useParams()
 
   return (
     <>
@@ -50,7 +46,7 @@ const Document = ({ document , auth }) => {
         {
          auth?.userType !== 'student' &&
          <TableCell style={{textAlign: 'center'}}>
-            <IconButton color='error' onClick={() => dispatch(getRemoveFileFromMission({ fileId : document._id , missionId : params.id }))}>
+            <IconButton color='error' onClick={() => dispatch(getRemoveFileFromMission({ fileId : document._id , missionId : id }))}>
                 <DeleteIcon/>
             </IconButton>
         </TableCell> 

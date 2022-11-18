@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllSubjects } from "../../redux/actions/getSubjectsAction";
 import { useNavigate } from "react-router-dom";
 import MissionComp from "./mission";
-import { getAllMissions, getMission } from "../../redux/actions/getMissionAction";
+import { getAllMissions } from "../../redux/actions/getMissionAction";
 
 const Missions = ({ auth, user, users }) => {
-  const missions = useSelector((state) => state.missions.mission);
+  const missions = useSelector((state) => state.missions.missions);
   const missionLoading = useSelector((state) => state.missions.missionLoading);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ const Missions = ({ auth, user, users }) => {
           >
             {user?.userType === "admin" || user?.userType === "teacher" ? (
               <>
-                {missions.map((item) => {
+                {missions?.map((item) => {
                   return (
                       <Grid key={item?._id} item xs={2} sm={4} md={4}>
                       <MissionComp mission={item} user={user} />
