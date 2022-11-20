@@ -3,15 +3,16 @@ import React from 'react'
 
 const SubjectSelectorMission = (props) => {
 
+  console.log(props.subject);
+
   return (
           <FormControl
             required
             variant="standard"
-            fullWidth
-            
+            fullWidth  
           >
             <InputLabel id="demo-simple-select-standard-label">
-              נושא לימוד
+            בחר קורס
             </InputLabel>
             <Select
               labelId="demo-simple-select-standard-label"
@@ -20,7 +21,7 @@ const SubjectSelectorMission = (props) => {
               value={props.subject}
               onChange={(e) => props.setSubject(e.target.value)}
             >
-              <MenuItem style={{width : '100%' , direction : 'rtl'}} disabled value="Select Season">
+              <MenuItem style={{width : '100%' , direction : 'rtl'}} disabled value="בחר קורס">
                 בחר
               </MenuItem>
               {props.subjects?.map((item, i) => {

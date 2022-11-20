@@ -1,9 +1,7 @@
 import { Box, Chip, ListItemText, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 
-const MissionDetails = ({user , subject , studentMission, mission}) => {
-
-  console.log(studentMission);
+const MissionDetails = ({subject , studentMission, mission}) => {
 
   return (
     <Box

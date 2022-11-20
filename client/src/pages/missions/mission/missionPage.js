@@ -8,9 +8,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getMission } from '../../../redux/actions/getMissionAction';
 import MissionDocument from './missionDocument';
+import MissionDetailsAdmin from './adminMissionPage/missionDetailsAdmin';
 
 const MissionPage = ({auth}) => {
-    const dispatch = useDispatch()
     const { id } = useParams()
     const subjects = useSelector((state) => state.subjects.subjects);
     const missions = useSelector(state => state.missions.missions)
@@ -36,7 +36,7 @@ const MissionPage = ({auth}) => {
     {missionLoading ? 
       <Box style={{ textAlign: "center" }}>{progress}</Box> :
           <>
-          <MissionHeader auth={auth} subject={subject} mission={mission}/>
+        <MissionHeader auth={auth} subject={subject} mission={mission}/>
         <Grid container
             spacing={{ xs: 1, md: 1 }}
             columns={{ xs: 2, sm: 6, md: 12 }}
@@ -48,7 +48,8 @@ const MissionPage = ({auth}) => {
           >
             <Grid item xs={6}>
               {
-                mission && <MissionDetails auth={auth} subject={subject} studentMission={studentMission[0]} mission={mission}  /> 
+                auth.userType === 'student' ?<MissionDetails auth={auth} subject={subject} studentMission={studentMission[0]} mission={mission}  /> :
+                <MissionDetailsAdmin auth={auth} subject={subject} mission={mission}/>
               }
             </Grid>
             <Grid item xs={6}><MissionDocument mission={mission} auth={auth}/></Grid>

@@ -33,6 +33,21 @@ router.route('/:id').delete(async (req ,res) => {
     res.send(data)
 })
 
+router.route('/:id').put(async (req ,res) => {
+    let id = req.params.id
+    await missionBL.updateMission(id , req.body)
+    let data = await missionBL.getMission(id)
+    res.send(data)
+})
+
+router.route('/add-file/:id').put(upload.single('file') , async (req , res) => {
+    let fileName = Buffer.from(req.file.originalname, 'latin1').toString('utf8')
+    let path = req.file.path.replace("\\" , '/').replace("\\" , '/')
+    await missionBL.addFileToMission(req.params.id , { fileName , path })
+    let data = await missionBL.getMission(req.params.id)
+    res.send(data)
+})
+
 router.route('/remove-file/:id').put(async (req , res) => {
     let data = await missionBL.removeFileFromMission(req.body)
     res.send(data)

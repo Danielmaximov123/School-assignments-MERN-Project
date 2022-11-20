@@ -33,7 +33,7 @@ const MissionHeader = (props) => {
           >
         <Grid item xs={6}>
         <Typography style={{marginBottom: '1rem'}} variant='h4'>
-          {props?.auth?.fName} , זו היא המשימה שלך
+          {props?.auth?.fName} , {props?.auth?.userType !== 'student' ? "הגעת לדף המשימה" : 'זו היא המשימה שלך'}
           </Typography>
         </Grid>
         <Grid item xs={6}>

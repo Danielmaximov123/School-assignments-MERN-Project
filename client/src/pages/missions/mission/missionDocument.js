@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { Fragment } from 'react';
 import Document from './document';
+import UploadFileUpdate from './adminMissionPage/uploadFile';
 
 const MissionDocument = ({mission , auth}) => {
 
@@ -44,7 +45,11 @@ const MissionDocument = ({mission , auth}) => {
       </Table>
     </TableContainer>
         </Box>
-    
+    {
+      auth?.userType !== 'student' && <Box>
+      <UploadFileUpdate mission={mission}/>
+    </Box>
+    }
     </Box>
   )
 }

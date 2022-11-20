@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import PreviewPDF from './previewPDF';
 
 const UploadFile = (props) => {
-  const [open, setOpen] = useState(false)
 
 const onChange = e => {
     let id = Math.floor(Math.random() * 100)

@@ -11,6 +11,13 @@ const missionReduces = (state = initialState, action) => {
         case 'ADD_MISSION' : 
             state = { ...state , missions : [ ...state.missions, action.payload ] }
             return state
+        case 'UPDATE_MISSION':
+            let missionUpdate = state?.missions.find(item => item._id === action.payload._id)
+            missionUpdate = action.payload
+            state = { ...state, missions : state.missions.map(mission => 
+                mission._id === action.payload._id ? missionUpdate : mission
+            )}
+            return state 
         case 'REMOVE_FILE_FROM_MISSION' :
             let getMission = state.missions.find(mission => mission._id === action.payload.missionId)
             let removeFile = getMission.files.filter(file => file._id !== action.payload.fileId)

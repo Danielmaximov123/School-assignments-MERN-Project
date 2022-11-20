@@ -96,3 +96,35 @@ exports.removeFileFromMission = (data) => {
         })
     })
 }
+
+exports.updateMission = (id,obj) => {
+    return new Promise((resolve, reject) => {
+        missionsSchema.findByIdAndUpdate(id, 
+            obj , (err) => {
+                if(err) {
+                    reject(err);
+                }
+                else {
+                    resolve('Updated !!')
+                }
+            })
+    })
+}
+
+exports.addFileToMission = (id , obj) => {
+    return new Promise(async (resolve , reject) => {
+        let getMissionToUpdate = await this.getMission(id)
+        let files = getMissionToUpdate.files
+        files.push(obj)
+
+        missionsSchema.findByIdAndUpdate(id, 
+            {files : files} , (err) => {
+                if(err) {
+                    reject(err);
+                }
+                else {
+                    resolve('Updated !!')
+                }
+            })
+    })
+}
