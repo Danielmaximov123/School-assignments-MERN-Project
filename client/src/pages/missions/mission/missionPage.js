@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { getMission } from '../../../redux/actions/getMissionAction';
 import MissionDocument from './missionDocument';
 import MissionDetailsAdmin from './adminMissionPage/missionDetailsAdmin';
+import SubmitMission from './submitMission';
 
 const MissionPage = ({auth}) => {
     const { id } = useParams()
@@ -53,7 +54,13 @@ const MissionPage = ({auth}) => {
               }
             </Grid>
             <Grid item xs={6}><MissionDocument mission={mission} auth={auth}/></Grid>
-            <Grid item xs={12}><MissionDetails/></Grid>
+            {
+              auth?.userType === 'student' ? <Grid style={{margin: 'auto'}} item xs={6}><SubmitMission auth={auth}/></Grid> : 
+              mission?.students?.map(item => {
+                return <Grid key={item._id} item xs={4}><MissionDetails/></Grid>
+              })
+            }
+            
             <Grid></Grid>
         </Grid>
           </>

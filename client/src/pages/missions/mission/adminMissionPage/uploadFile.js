@@ -13,11 +13,11 @@ const onChange = e => {
 }
 
   return (
-    <Box style={{textAlign: 'center', marginTop: '0.5rem'}}>
+    <Box style={{direction : 'rtl' ,textAlign: 'center', marginTop: '0.5rem'}}>
         <Button
           variant="contained"
           component="label"
-          startIcon={<UploadFileIcon />}
+          endIcon={<UploadFileIcon />}
         >
           להוסיף מסמכים
           <input

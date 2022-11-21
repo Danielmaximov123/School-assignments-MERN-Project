@@ -16,7 +16,7 @@ const onChange = e => {
 
 
   return (
-    <Box style={{textAlign: 'center', marginTop: '0.5rem'}}>
+    <Box style={{direction : 'rtl' , textAlign: 'center', marginTop: '0.5rem'}}>
         <Button
           disabled={props.filesDoc.length === 5 ? true : false}
           variant="contained"

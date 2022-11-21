@@ -42,10 +42,9 @@ export const getDeleteMission = (id) => async dispatch => {
 }
 
 export const getUpdateMission = (id , data) => async dispatch => {
-    dispatch({ type : 'MISSION_LOADING' , payload : true })
     let resp = await axios.put(`${urlApi}/missions/${id}` , data)
     dispatch({ type : 'UPDATE_MISSION' , payload : resp.data })
-    dispatch({ type : 'MISSION_LOADING' , payload : false })
+    toast.success('המשימה עודכה !' , {position : toast.POSITION.BOTTOM_RIGHT})
 }
 
 export const getRemoveFileFromMission = (data) => async dispatch => {
