@@ -55,10 +55,15 @@ const MissionPage = ({auth}) => {
             </Grid>
             <Grid item xs={6}><MissionDocument mission={mission} auth={auth}/></Grid>
             {
-              auth?.userType === 'student' ? <Grid style={{margin: 'auto'}} item xs={6}><SubmitMission auth={auth}/></Grid> : 
-              mission?.students?.map(item => {
-                return <Grid key={item._id} item xs={4}><MissionDetails/></Grid>
-              })
+              studentMission[0]?.completed ? 'המשימה כבר הוגשה !' :
+              <>
+              {
+                auth?.userType === 'student' ? <Grid style={{margin: 'auto'}} item xs={6}><SubmitMission auth={auth} studentMission={studentMission[0]}/></Grid> : 
+                mission?.students?.map(item => {
+                  return <Grid key={item._id} item xs={4}><MissionDetails/></Grid>
+                })
+              }
+              </>
             }
             
             <Grid></Grid>

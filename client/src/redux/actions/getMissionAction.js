@@ -58,3 +58,7 @@ export const getAddFileToMission = (id , data) => async dispatch => {
     dispatch({ type : 'UPDATE_MISSION' , payload : resp.data })
     toast.success('הקובץ הועלה בהצלחה !' , {position : toast.POSITION.BOTTOM_RIGHT})
 }
+
+export const getSubmitMissionStudent = (id , data) => async dispatch => {
+    // let resp = await axi
+}

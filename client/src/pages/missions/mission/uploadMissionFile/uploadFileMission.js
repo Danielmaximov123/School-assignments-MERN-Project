@@ -21,11 +21,12 @@ const UploadFileMission = (props) => {
           להוסיף מסמכים
           <input
             hidden
-            accept={".pdf"}
+            accept={".pdf , .zip"}
             type="file"
             onChange={(e) => onChange(e)}
           />
         </Button>{" "}
+          <Typography variant='subtitle2'>קבצים מסוג .zip או .pdf</Typography>
     </Box>
   )
 }
