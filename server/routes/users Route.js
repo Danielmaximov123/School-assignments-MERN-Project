@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const usersBL = require('../BL/usersBL');
-const upload = require('../helper-profile');
+const upload = require('../uploads/profile-picture/helper-profile');
 const { createRandomBytes } = require('../mails/cryptoForMails');
 const { sendWelcomeMail } = require('../mails/Welcome-EmailBL');
 
