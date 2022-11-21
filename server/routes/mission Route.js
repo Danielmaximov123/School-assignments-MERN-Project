@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const upload = require('../helper-teacher');
+const upload = require('../uploads/teachers/helper-teacher');
 const missionBL = require('../BL/missionsBL')
 
 router.route('/').get(async (req , res) => {
