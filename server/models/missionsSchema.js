@@ -14,7 +14,7 @@ const missionSchema = new mongoose.Schema({
             note : { type : String , default : null },
             teacherNote : { type : String , default : null },
             grade : { type : Number , default : null },
-            files : [{ type : String }],
+            files : [{ fileName : { type : String } , path : { type : String } }],
         }
     ],
     files : [{ fileName : { type : String } , path : { type : String } }],

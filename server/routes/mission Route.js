@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const upload = require('../uploads/teachers/helper-teacher');
+const uploadTeachers = require('../uploads/teachers/helper-teacher');
+const uploadStudents = require('../uploads/students/helper-students');
 const missionBL = require('../BL/missionsBL')
 
 router.route('/').get(async (req , res) => {
@@ -14,7 +15,7 @@ router.route('/:id').get(async (req , res) => {
     res.send(data)
 })
 
-router.route('/upload-mission').post(upload.array('file' , 5) , async(req ,res) => {
+router.route('/upload-mission').post(uploadTeachers.array('file' , 5) , async(req ,res) => {
     let data = JSON.parse(req.body.missionInfo)
     let files = []
     for (let i = 0; i < req.files.length; i++) {
@@ -40,7 +41,7 @@ router.route('/:id').put(async (req ,res) => {
     res.send(data)
 })
 
-router.route('/add-file/:id').put(upload.single('file') , async (req , res) => {
+router.route('/add-file/:id').put(uploadTeachers.single('file') , async (req , res) => {
     let fileName = Buffer.from(req.file.originalname, 'latin1').toString('utf8')
     let path = req.file.path.replace("\\" , '/').replace("\\" , '/')
     await missionBL.addFileToMission(req.params.id , { fileName , path })
@@ -51,6 +52,20 @@ router.route('/add-file/:id').put(upload.single('file') , async (req , res) => {
 router.route('/remove-file/:id').put(async (req , res) => {
     let data = await missionBL.removeFileFromMission(req.body)
     res.send(data)
+})
+
+router.route('/submit-mission/:id').put(uploadStudents.array('file' , 5) , async(req ,res) => {
+    let data = JSON.parse(req.body.missionInfo)
+    let files = []
+    for (let i = 0; i < req.files.length; i++) {
+        let file = req.files[i]
+        let fileName = Buffer.from(file.originalname, 'latin1').toString('utf8')
+        let path = file.path.replace("\\" , '/').replace("\\" , '/')
+        files.push({ fileName , path })
+    }
+    await missionBL.submitMissionStudent(req.params.id , data.missionStudentId , { note : data.note , files : files })
+    let mission = await missionBL.getMission(req.params.id)
+    res.send(mission)
 })
 
 

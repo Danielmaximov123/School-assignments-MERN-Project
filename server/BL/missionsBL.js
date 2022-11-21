@@ -128,3 +128,26 @@ exports.addFileToMission = (id , obj) => {
             })
     })
 }
+
+exports.submitMissionStudent = (id , student , data) => {
+    return new Promise(async(resolve , reject) => {
+        let getMission = await this.getMission(id)
+        let getStudent = getMission.students.find(i => i.studentId === student)
+        let getAllStudents = getMission.students
+        getStudent.note = data.note
+        getStudent.completed = true
+        getStudent.files = data.files
+        console.log(getAllStudents);
+
+        missionsSchema.findByIdAndUpdate(id , {
+            students : getAllStudents
+        } , (err) => {
+                if(err) {
+                    reject(err);
+                }
+                else {
+                    resolve('Updated !!')
+                }
+            })
+    })
+}
