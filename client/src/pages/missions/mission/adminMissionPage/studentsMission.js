@@ -23,7 +23,8 @@ const StudentsMission = ({ mission }) => {
   const [showCompletedAndGrade, setShowCompletedAndGrade] = useState(false)
   const [showOnlySearch, setShowOnlySearch] = useState(false)
 
-let studentMission = mission?.students.map((i) => {
+  console.log(process.env);
+  let studentMission = mission?.students.map((i) => {
   let user = users.find(j => j._id === i.studentId)
   return { _id : i._id , title : mission?.title , description : mission?.description , files : i?.files , grade : i?.grade , completed : i?.completed , subject : mission?.subject , deadlineDate : mission?.deadlineDate , fullName : `${user?.fName} ${user?.lName}` , studentId : i?.studentId , teacherNote : i?.teacherNote , note : i?.note , submitDate : i?.submitDate }
 })
