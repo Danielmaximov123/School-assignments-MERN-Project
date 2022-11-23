@@ -86,7 +86,7 @@ const MissionDetailsAdmin = (props) => {
         <Box style={{textAlign : 'center' , marginTop : '1rem'}}>
         <LoadingButton
           loading={missionLoading}
-          style={{width: '30%' , margin : '0.3rem'}}
+          style={window.screen.width < 1000 ? {width: '40%' , margin : '0.3rem'} : {width: '25%' , margin : '0.3rem'}}
           loadingPosition='end'
           endIcon={<SyncIcon />}
           variant="contained"
@@ -95,7 +95,7 @@ const MissionDetailsAdmin = (props) => {
         >
           עדכן משימה
         </LoadingButton>
-        <Button onClick={e => handleReset(e)} style={{width: '30%'}} variant="contained" color='warning' endIcon={<RestartAltIcon/>}>
+        <Button onClick={e => handleReset(e)} style={window.screen.width < 1000 ? {width: '40%'} : {width: '25%'}} variant="contained" color='warning' endIcon={<RestartAltIcon/>}>
           ברירת מחדל
         </Button>
         </Box>

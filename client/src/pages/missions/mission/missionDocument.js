@@ -18,7 +18,7 @@ const MissionDocument = ({mission , auth}) => {
       padding: "1rem",
       backgroundColor: "rgb(255, 255, 255)",
     }}>
-        <Typography style={{ textAlign: "center" }} variant="h5">
+        <Typography style={{ textAlign: "center" , margin : '1rem'}} variant="h5">
             קבצים
         </Typography>
         <Box>

@@ -59,3 +59,9 @@
 #upIMG:hover {
     opacity: 1;
 }
+
+.muirtl-1elwnq4-MuiPaper-root-MuiAccordion-root:before {
+    display: none;
+}
+
+.MUIDataTable-responsiveScroll { max-height: none;}

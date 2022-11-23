@@ -4,21 +4,30 @@ import UploadFileMission from "./uploadMissionFile/uploadFileMission";
 import PdfSubmitMissionList from "./uploadMissionFile/pdfSubList";
 import PublishIcon from "@mui/icons-material/Publish";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LoadingButton } from "@mui/lab";
+import { getSubmitMissionStudent } from "../../../redux/actions/getMissionAction";
+import { useParams } from 'react-router-dom';
 
 const SubmitMission = ({ studentMission , auth}) => {
   const missionLoading = useSelector((state) => state.missions.missionLoading);
+  const { id } = useParams()
+  const dispatch = useDispatch()
   const [note, setNote] = useState("");
   const [files, setFiles] = useState([]);
   const [open, setOpen] = useState(false);
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log({ note, files });
+    const form = new FormData();
+        form.append('missionInfo' , JSON.stringify({note , missionStudentId : studentMission.studentId}))
+        for (let i = 0; i < files.length; i++) {
+          form.append("file", files[i].file);
+        }
+        let send = await dispatch(getSubmitMissionStudent(id  , form))
   };
-
-  console.log(studentMission.studentId === auth.userId);
 
   const handleReset = () => {
     setFiles([]);
@@ -38,7 +47,7 @@ const SubmitMission = ({ studentMission , auth}) => {
         backgroundColor: "rgb(255, 255, 255)",
       }}
     >
-      <Typography style={{ textAlign: "center" }} variant="h5">
+      <Typography style={{ textAlign: "center" , margin : '1rem' }} variant="h5">
         הגשת משימה
       </Typography>
       <Box component="form" onSubmit={handleSubmit}>

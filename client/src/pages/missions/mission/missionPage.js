@@ -10,6 +10,7 @@ import { getMission } from '../../../redux/actions/getMissionAction';
 import MissionDocument from './missionDocument';
 import MissionDetailsAdmin from './adminMissionPage/missionDetailsAdmin';
 import SubmitMission from './submitMission';
+import StudentsMission from './adminMissionPage/studentsMission';
 
 const MissionPage = ({auth}) => {
     const { id } = useParams()
@@ -55,19 +56,17 @@ const MissionPage = ({auth}) => {
             </Grid>
             <Grid item xs={6}><MissionDocument mission={mission} auth={auth}/></Grid>
             {
-              studentMission[0]?.completed ? 'המשימה כבר הוגשה !' :
+              studentMission[0]?.completed ? null :
               <>
               {
-                auth?.userType === 'student' ? <Grid style={{margin: 'auto'}} item xs={6}><SubmitMission auth={auth} studentMission={studentMission[0]}/></Grid> : 
-                mission?.students?.map(item => {
-                  return <Grid key={item._id} item xs={4}><MissionDetails/></Grid>
-                })
+                auth?.userType === 'student' ? <Grid style={{margin: 'auto'}} item xs><SubmitMission auth={auth} studentMission={studentMission[0]}/></Grid> : 
+                
+                  <Grid item xs={12}><StudentsMission mission={mission}/></Grid>
               }
               </>
             }
-            
-            <Grid></Grid>
         </Grid>
+            
           </>
     }
     </Box>

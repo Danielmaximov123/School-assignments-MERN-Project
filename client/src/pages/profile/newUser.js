@@ -94,7 +94,7 @@ const NewUser = () => {
       </Typography>
       <Box
         component="form"
-        style={{ width: "40%", marginLeft: "auto", marginRight: "auto" }}
+        style={window.screen.width >= 1000 ? { width: "40%", marginLeft: "auto", marginRight: "auto" } : { width: "100%", marginLeft: "auto", marginRight: "auto" }}
         onSubmit={handleSubmit}
       >
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
