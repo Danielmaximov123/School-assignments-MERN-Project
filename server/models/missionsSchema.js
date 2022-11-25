@@ -15,7 +15,7 @@ const missionSchema = new mongoose.Schema({
             submitDate : { type : Date , default : new Date(Date.now()) },
             teacherNote : { type : String , default : null },
             grade : { type : Number , default : null },
-            files : [{ fileName : { type : String } , path : { type : String } }],
+            files : [{ fileName : { type : String } , path : { type : String } , type : { type : String } }],
         }
     ],
     files : [{ fileName : { type : String } , path : { type : String } }],

@@ -13,7 +13,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import AccordionStudents from "./accordionStudents";
 
-const StudentsMission = ({ mission }) => {
+const StudentsMission = ({ mission , auth }) => {
   const [completed, setCompleted] = useState(null);
   const [grade, setGrade] = useState(null)
   const [query, setQuery] = useState('')
@@ -23,7 +23,6 @@ const StudentsMission = ({ mission }) => {
   const [showCompletedAndGrade, setShowCompletedAndGrade] = useState(false)
   const [showOnlySearch, setShowOnlySearch] = useState(false)
 
-  console.log(process.env);
   let studentMission = mission?.students.map((i) => {
   let user = users.find(j => j._id === i.studentId)
   return { _id : i._id , title : mission?.title , description : mission?.description , files : i?.files , grade : i?.grade , completed : i?.completed , subject : mission?.subject , deadlineDate : mission?.deadlineDate , fullName : `${user?.fName} ${user?.lName}` , studentId : i?.studentId , teacherNote : i?.teacherNote , note : i?.note , submitDate : i?.submitDate }
@@ -149,7 +148,7 @@ const StudentsMission = ({ mission }) => {
         let student = users.find((i) => i._id === mission.studentId);
         return (
           <Fragment key={index}>
-            <AccordionStudents index={index} mission={mission} student={student}/>
+            <AccordionStudents auth={auth} index={index} mission={mission} student={student}/>
           </Fragment>
         );
       })}

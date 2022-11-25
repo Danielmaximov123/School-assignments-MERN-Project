@@ -137,7 +137,6 @@ exports.submitMissionStudent = (id , student , data) => {
         getStudent.note = data.note
         getStudent.completed = true
         getStudent.files = data.files
-        console.log(getAllStudents);
 
         missionsSchema.findByIdAndUpdate(id , {
             students : getAllStudents

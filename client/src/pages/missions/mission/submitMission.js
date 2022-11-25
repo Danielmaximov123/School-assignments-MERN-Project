@@ -26,7 +26,7 @@ const SubmitMission = ({ studentMission , auth}) => {
         for (let i = 0; i < files.length; i++) {
           form.append("file", files[i].file);
         }
-        let send = await dispatch(getSubmitMissionStudent(id  , form))
+        await dispatch(getSubmitMissionStudent(id  , form))
   };
 
   const handleReset = () => {

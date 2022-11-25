@@ -43,6 +43,7 @@ router.route('/:id').put(async (req ,res) => {
 
 router.route('/add-file/:id').put(uploadTeachers.single('file') , async (req , res) => {
     let fileName = Buffer.from(req.file.originalname, 'latin1').toString('utf8')
+    console.log(fileName);
     let path = req.file.path.replace("\\" , '/').replace("\\" , '/')
     await missionBL.addFileToMission(req.params.id , { fileName , path })
     let data = await missionBL.getMission(req.params.id)
@@ -60,8 +61,9 @@ router.route('/submit-mission/:id').put(uploadStudents.array('file' , 5) , async
     for (let i = 0; i < req.files.length; i++) {
         let file = req.files[i]
         let fileName = Buffer.from(file.originalname, 'latin1').toString('utf8')
+        let type = req.files[i].mimetype.includes('pdf') ? 'pdf' : 'zip'
         let path = file.path.replace("\\" , '/').replace("\\" , '/')
-        files.push({ fileName , path })
+        files.push({ fileName , path , type })
     }
     await missionBL.submitMissionStudent(req.params.id , data.missionStudentId , { note : data.note , files : files })
     let mission = await missionBL.getMission(req.params.id)
