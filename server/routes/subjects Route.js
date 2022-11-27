@@ -18,6 +18,13 @@ router.route('/').post(async (req ,res) => {
     res.send(data)
 })
 
+router.route('/:id').put(async (req ,res) => {
+    let id = req.params.id
+    await subjectBL.updateSubject(id , req.body)
+    let data = await subjectBL.getSubject(id)
+    res.send(data)
+})
+
 router.route('/:id').delete(async (req ,res) => {
     let id = req.params.id
     let data = await subjectBL.deleteSubject(id)
