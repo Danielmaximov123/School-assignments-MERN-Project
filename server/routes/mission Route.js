@@ -70,5 +70,21 @@ router.route('/submit-mission/:id').put(uploadStudents.array('file' , 5) , async
     res.send(mission)
 })
 
+router.route('/submit-grade/:id').put(async(req ,res) => {
+    let data = { teacherNote : req.body.teacherNote , grade : req.body.grade }
+    await missionBL.submitMissionTeacher(req.params.id , req.body.studentId , data)
+    let mission = await missionBL.getMission(req.params.id)
+    res.send(mission)
+})
+
+router.route('/file-student/:id').put(async(req ,res) => {
+    let missionId = req.params.id
+    let student = req.body.student
+    let document = req.body.document
+    await missionBL.removeFileFromStudent(missionId , student ,  document)
+    let mission = await missionBL.getMission(missionId)
+    res.send(mission)
+})
+
 
 module.exports = router

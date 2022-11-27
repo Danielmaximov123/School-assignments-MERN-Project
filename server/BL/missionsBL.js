@@ -137,6 +137,48 @@ exports.submitMissionStudent = (id , student , data) => {
         getStudent.note = data.note
         getStudent.completed = true
         getStudent.files = data.files
+        getStudent.submitDate = new Date(Date.now())
+
+        missionsSchema.findByIdAndUpdate(id , {
+            students : getAllStudents
+        } , (err) => {
+                if(err) {
+                    reject(err);
+                }
+                else {
+                    resolve('Updated !!')
+                }
+            })
+    })
+}
+
+exports.submitMissionTeacher = (id , student , data) => {
+    return new Promise(async(resolve , reject) => {
+        let getMission = await this.getMission(id)
+        let getStudent = getMission.students.find(i => i.studentId === student)
+        let getAllStudents = getMission.students
+        getStudent.teacherNote = !data.teacherNote ? getStudent.teacherNote : data.teacherNote
+        getStudent.grade = data.grade
+
+        missionsSchema.findByIdAndUpdate(id , {
+            students : getAllStudents
+        } , (err) => {
+                if(err) {
+                    reject(err);
+                }
+                else {
+                    resolve('Updated !!')
+                }
+            })
+    })
+}
+
+exports.removeFileFromStudent = (id , student , data) => {
+    return new Promise(async(resolve , reject) => {
+        let getMission = await this.getMission(id)
+        let getStudent = getMission.students.find(i => i.studentId === student)
+        let getAllStudents = getMission.students
+        getStudent.files = getStudent.files.filter(i => i.id !== data._id)
 
         missionsSchema.findByIdAndUpdate(id , {
             students : getAllStudents
