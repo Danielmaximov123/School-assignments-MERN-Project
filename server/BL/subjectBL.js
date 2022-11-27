@@ -46,6 +46,20 @@ exports.getAddNewSubject = (data) => {
     })
 }
 
+exports.updateSubject = (id,obj) => {
+    return new Promise((resolve, reject) => {
+        subjectSchema.findByIdAndUpdate(id, 
+            obj , (err) => {
+                if(err) {
+                    reject(err);
+                }
+                else {
+                    resolve('Updated !!')
+                }
+            })
+    })
+}
+
 exports.deleteSubject = (id) => {
     return new Promise((resolve , reject) => {
         subjectSchema.findByIdAndDelete(id , (err) => {
