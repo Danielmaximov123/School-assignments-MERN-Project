@@ -3,18 +3,20 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AdminMissionDocument from './adminMissionDocument';
+import SubmitGradeAndNote from './submitGradeAndNote';
 
-const AccordionStudents = ({index , mission , auth , student}) => {
+const AccordionStudents = (props) => {
     const [expanded, setExpanded] = useState(false);
     const [date, setDate] = useState('')
     const [time, setTime] = useState('')
 
-    const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
+    const handleChange = (index) => (event, isExpanded) => {
+        setExpanded(isExpanded ? `panel${index}` : false);
       };
 
+
     useEffect(() => {
-      let d = new Date(mission?.submitDate)
+      let d = new Date(props.mission?.submitDate)
       const formatDate =
       d.getDate() < 10 ? `0${d.getDate()}` : d.getDate();
       const formatMonth =
@@ -26,7 +28,7 @@ const AccordionStudents = ({index , mission , auth , student}) => {
       
       setDate(`${formatDate}/${formatMonth}/${d.getFullYear()}`)
       setTime(`${formatHour}:${formatMinutes}`)
-    },[mission])
+    },[props.mission])
 
   return (
     <Box>
@@ -38,29 +40,29 @@ const AccordionStudents = ({index , mission , auth , student}) => {
                   display: "none",
                 },
               }}
-              className={`panelAccordion-${index}`}
-              expanded={expanded === `panel${index}`}
+              className={`panelAccordion-${props.index}`}
+              expanded={expanded === `panel${props.index}`}
               onChange={
-                mission?.completed ? handleChange(`panel${index}`) : null
+                props.mission?.completed ? handleChange(props.index) : null
               }
             >
               <AccordionSummary
-                expandIcon={mission?.completed && <ExpandMoreIcon />}
-                aria-controls={`panel${index}bh-content`}
-                id={`panel${index}bh-header`}
+                expandIcon={props.mission?.completed && <ExpandMoreIcon />}
+                aria-controls={`panel${props.index}bh-content`}
+                id={`panel${props.index}bh-header`}
               >
                 <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                  {student?.fName} {student?.lName}
+                  {props.student?.fName} {props.student?.lName}
                 </Typography>
                 <Chip
                   style={{ margin: "0.3rem" }}
-                  label={mission?.completed ? "הוגשה המשימה" : "לא הוגשה משימה"}
-                  color={mission?.completed ? "success" : "error"}
+                  label={props.mission?.completed ? "הוגשה המשימה" : "לא הוגשה משימה"}
+                  color={props.mission?.completed ? "success" : "error"}
                 />
                 <Chip
                   style={{ margin: "0.3rem" }}
-                  label={mission?.grade ? mission?.grade : "טרם התקבל ציון"}
-                  color={mission?.grade ? "success" : "error"}
+                  label={props.mission?.grade ? props.mission?.grade : "טרם התקבל ציון"}
+                  color={props.mission?.grade ? "success" : "error"}
                 />
 
               </AccordionSummary>
@@ -71,18 +73,19 @@ const AccordionStudents = ({index , mission , auth , student}) => {
                 </Typography>
                 </Box>
                 <Box display={{display : 'flex' , margin : '1rem'}}>
-                  <Typography>הערות מהתלמד :</Typography>
-                  {!mission?.note ? <Typography variant='body2' color='#8080809c' marginLeft={1}>(אין הערה)</Typography> : <Typography marginLeft={1}>{mission?.note}</Typography>}
+                  <Typography>הערות מהתלמיד :</Typography>
+                  {!props.mission?.note ? <Typography variant='body2' color='#8080809c' marginLeft={1}>(אין הערה)</Typography> : <Typography marginLeft={1}>{props.mission?.note}</Typography>}
                 </Box>
-                <Box display={mission?.files.length === 0 ? {display : 'flex' , margin : '1rem'} : {margin : '1rem'}}>
+                <Box display={props.mission?.files.length === 0 ? {display : 'flex' , margin : '1rem'} : {margin : '1rem'}}>
                   <Typography>קבצים שהוגשו :</Typography>
                   {
-                    mission?.files.length > 0 ? 
-                    <AdminMissionDocument mission={mission} auth={auth}/> : <Typography variant='body2' color='#8080809c' marginLeft={1}>(אין קבצים)</Typography>
+                    props.mission?.files.length > 0 ? 
+                    <AdminMissionDocument mission={props.mission} auth={props.auth}/> : <Typography variant='body2' color='#8080809c' marginLeft={1}>(אין קבצים)</Typography>
                   }
                 </Box>
                 <Box style={ {margin : '1rem'}}>
                   <Typography>הגשת ציון :</Typography>
+                    <SubmitGradeAndNote mission={props.mission} auth={props.auth} student={props.student} missionGrade={props.missionGradeReq}/>
                 </Box>
               </AccordionDetails>
             </Accordion>

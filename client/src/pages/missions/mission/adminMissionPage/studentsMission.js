@@ -25,7 +25,7 @@ const StudentsMission = ({ mission , auth }) => {
 
   let studentMission = mission?.students.map((i) => {
   let user = users.find(j => j._id === i.studentId)
-  return { _id : i._id , title : mission?.title , description : mission?.description , files : i?.files , grade : i?.grade , completed : i?.completed , subject : mission?.subject , deadlineDate : mission?.deadlineDate , fullName : `${user?.fName} ${user?.lName}` , studentId : i?.studentId , teacherNote : i?.teacherNote , note : i?.note , submitDate : i?.submitDate }
+  return { _id : i._id , missionId : mission._id , title : mission?.title , description : mission?.description , files : i?.files , grade : i?.grade , gradeReq : mission?.grade , completed : i?.completed , subject : mission?.subject , deadlineDate : mission?.deadlineDate , fullName : `${user?.fName} ${user?.lName}` , studentId : i?.studentId , teacherNote : i?.teacherNote , note : i?.note , submitDate : i?.submitDate }
 })
 
   let withGrade = studentMission?.filter((i) => grade ? i.grade : !i.grade);
@@ -104,12 +104,12 @@ const StudentsMission = ({ mission , auth }) => {
       />
       {!query && completed === null && grade === null &&
       <>
-            <Chip style={{margin : '0.8rem'}} variant="outlined" color="info" label={`${mission?.students?.length} תוצאות`} />
-      {mission?.students.map((mission, index) => {
-        let student = users.find((i) => i._id === mission.studentId);
+            <Chip style={{margin : '0.8rem'}} variant="outlined" color="info" label={`${studentMission?.length} תוצאות`} />
+      {studentMission?.map((missionI, index) => {
+        let student = users.find((i) => i._id === missionI.studentId);
         return (
           <Fragment key={index}>
-            <AccordionStudents index={index} mission={mission} student={student}/>
+            <AccordionStudents missionGradeReq={mission.grade} index={index} mission={missionI} student={student}/>
           </Fragment>
         );
       })}
@@ -118,11 +118,11 @@ const StudentsMission = ({ mission , auth }) => {
       {showOnlyCompleted &&
       <>
             <Chip style={{margin : '0.8rem'}} variant="outlined" color="info" label={`${withCompleted.length} תוצאות`} />
-      {withCompleted?.map((mission, index) => {
-        let student = users.find((i) => i._id === mission.studentId);
+      {withCompleted?.map((missionI, index) => {
+        let student = users.find((i) => i._id === missionI.studentId);
         return (
           <Fragment key={index}>
-            <AccordionStudents index={index} mission={mission} student={student}/>
+            <AccordionStudents missionGradeReq={mission.grade} index={index} mission={missionI} student={student}/>
           </Fragment>
         );
       })}
@@ -131,11 +131,11 @@ const StudentsMission = ({ mission , auth }) => {
       {showOnlyGrade &&
       <>
             <Chip style={{margin : '0.8rem'}} variant="outlined" color="info" label={`${withGrade.length} תוצאות`} />
-      {withGrade.map((mission, index) => {
-        let student = users.find((i) => i._id === mission.studentId);
+      {withGrade.map((missionI, index) => {
+        let student = users.find((i) => i._id === missionI.studentId);
         return (
           <Fragment key={index}>
-            <AccordionStudents index={index} mission={mission} student={student}/>
+            <AccordionStudents missionGradeReq={mission.grade} index={index} mission={missionI} student={student}/>
           </Fragment>
         );
       })}
@@ -144,11 +144,11 @@ const StudentsMission = ({ mission , auth }) => {
       {showCompletedAndGrade &&
       <>
       <Chip style={{margin : '0.8rem'}} variant="outlined" color="info" label={`${withCompletedAndGrade.length} תוצאות`} />
-      {withCompletedAndGrade.map((mission, index) => {
-        let student = users.find((i) => i._id === mission.studentId);
+      {withCompletedAndGrade.map((missionI, index) => {
+        let student = users.find((i) => i._id === missionI.studentId);
         return (
           <Fragment key={index}>
-            <AccordionStudents auth={auth} index={index} mission={mission} student={student}/>
+            <AccordionStudents missionGradeReq={mission.grade} auth={auth} index={index} mission={missionI} student={student}/>
           </Fragment>
         );
       })}
@@ -157,11 +157,11 @@ const StudentsMission = ({ mission , auth }) => {
       {showOnlySearch &&
       <>
       <Chip style={{margin : '0.8rem'}} variant="outlined" color="info" label={`${withQuery.length} תוצאות`} />
-      {withQuery.map((mission, index) => {
-        let student = users.find((i) => i._id === mission.studentId);
+      {withQuery.map((missionI, index) => {
+        let student = users.find((i) => i._id === missionI.studentId);
         return (
           <Fragment key={index}>
-            <AccordionStudents index={index} mission={mission} student={student}/>
+            <AccordionStudents missionGradeReq={mission.grade} index={index} mission={missionI} student={student}/>
           </Fragment>
         );
       })}

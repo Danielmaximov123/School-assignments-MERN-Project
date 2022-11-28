@@ -15,6 +15,7 @@ import profilePicWomen from "../profile/profile women.jpg";
 const StudentsComp = ({users , user}) => {
   const cities = useSelector((state) => state.various.cities);
   const variousLoading = useSelector((state) => state.various.variousLoading);
+  const subjects = useSelector(state => state.subjects.subjects)
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -117,15 +118,15 @@ const StudentsComp = ({users , user}) => {
       headerAlign : 'center',
       width : 150,
       valueGetter : ({value}) => {
-        let sub = value.map(item => item.title)
-        let title = sub.join(' | ')
+        let sub = value.map(item => subjects.find(i => i._id === item))
+        let title = sub.map(j => j.title).join(' | ')
           return (
             `${title}`
           )
       },
       renderCell: (params) => {    
         let subjects = params?.row?.subjects
-        let titles = subjects.map(item => <Typography key={item?._id} style={{fontSize : '0.6875rem' , textAlign : 'center'}}>{item.title}</Typography>)
+        let titles = subjects.map((item , index) => <Typography key={index} style={{fontSize : '0.6875rem' , textAlign : 'center'}}>{item.title}</Typography>)
         return (
           <Tooltip placement='top' title={titles}>
             <Typography variant='span'>{subjects.length}</Typography>

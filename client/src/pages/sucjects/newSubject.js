@@ -13,7 +13,7 @@ const NewSubject = (props) => {
         style={{direction : 'rtl' , textAlign : 'center' , minHeight : 450 }}
       >
         <DialogTitle id="alert-dialog-title">
-          {props.user.fName} , איזה נושא {props.user.gender === 10 ? 'תרצה' : "תרצי"} להוסיף ?
+          {props?.user?.fName} , איזה נושא {props?.user?.gender === 10 ? 'תרצה' : "תרצי"} להוסיף ?
         </DialogTitle>
         <DialogContent>
           <DialogContentText component='div' id="alert-dialog-description">

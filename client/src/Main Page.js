@@ -46,7 +46,7 @@ const MainPageComp = () => {
                 <Route path="missions" element={<Missions auth={auth} user={user} users={users}/>}/>
                 <Route path="missions/add-new" element={<NewMission auth={auth} user={user} users={users}/>}/>
                 <Route path="missions/:id" element={<MissionPage auth={auth}/>}/>
-                <Route path="subjects" element={<Subjects auth={auth} user={user}/>}/>
+                <Route path="subjects" element={<Subjects auth={auth} user={user} users={users}/>}/>
                 <Route path="students" element={<StudentsComp user={user} users={users}/>}/>
                 <Route path="my-profile" element={<MyProfileComp auth={auth} user={user}/>}/>
                 <Route path="new-user" element={<NewUser/>}/>

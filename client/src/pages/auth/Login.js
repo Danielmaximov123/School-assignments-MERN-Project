@@ -5,8 +5,6 @@ import LoginFormComp from './LoginForm';
 
 const LoginComp = () => {
 
-  console.log();
-
   return (
     <div>
         <Grid style={{ height : '100vh'}} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

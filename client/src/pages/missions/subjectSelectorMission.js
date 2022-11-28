@@ -3,8 +3,6 @@ import React from 'react'
 
 const SubjectSelectorMission = (props) => {
 
-  console.log(props.subject);
-
   return (
           <FormControl
             required

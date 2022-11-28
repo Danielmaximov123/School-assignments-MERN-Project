@@ -54,7 +54,7 @@ const FormNewMission = () => {
 
     
   return (
-    <Box style={{padding : '0rem 4rem' , width : '55%' , marginLeft : 'auto' , marginRight : 'auto' }} component='form' onSubmit={handleAddNew}>
+    <Box style={window.screen.width > 1000  ? {padding : '0rem 4rem' , width : '55%' , marginLeft : 'auto' , marginRight : 'auto' } : {padding : '0rem 4rem'}} component='form' onSubmit={handleAddNew}>
         <TextField
           style={{marginBottom : '0.5rem'}}
           required

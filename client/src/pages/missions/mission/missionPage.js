@@ -59,7 +59,7 @@ const MissionPage = ({auth}) => {
               studentMission[0]?.completed ? null :
               <>
               {
-                auth?.userType === 'student' ? <Grid style={{margin: 'auto'}} item xs><SubmitMission auth={auth} studentMission={studentMission[0]}/></Grid> : 
+                auth?.userType === 'student' ? <Grid style={{margin: 'auto'}} item xs><SubmitMission auth={auth} studentMission={studentMission[0]} mission={mission}/></Grid> : 
                 
                   <Grid item xs={12}><StudentsMission auth={auth} mission={mission}/></Grid>
               }

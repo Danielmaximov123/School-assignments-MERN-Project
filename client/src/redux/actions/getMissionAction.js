@@ -44,7 +44,7 @@ export const getDeleteMission = (id) => async dispatch => {
 export const getUpdateMission = (id , data) => async dispatch => {
     let resp = await axios.put(`${urlApi}/missions/${id}` , data)
     dispatch({ type : 'UPDATE_MISSION' , payload : resp.data })
-    toast.success('המשימה עודכה !' , {position : toast.POSITION.BOTTOM_RIGHT})
+    toast.success('המשימה עודכנה !' , {position : toast.POSITION.BOTTOM_RIGHT})
 }
 
 export const getRemoveFileFromMission = (data) => async dispatch => {
@@ -63,4 +63,17 @@ export const getAddFileToMission = (id , data) => async dispatch => {
 export const getSubmitMissionStudent = (id , data) => async dispatch => {
     let resp = await axios.put(`${urlApi}/missions/submit-mission/${id}` , data)
     dispatch({ type : 'UPDATE_MISSION' , payload : resp.data })
+    toast.success('המשימה הוגשה בהצלחה !' , {position : toast.POSITION.BOTTOM_RIGHT})
+}
+
+export const getSubmitMissionTeacher = (id , data) => async dispatch => {
+    let resp = await axios.put(`${urlApi}/missions/submit-grade/${id}` , data)
+    dispatch({ type : 'UPDATE_MISSION' , payload : resp.data })
+    toast.success('ציון הוגש בהצלחה !' , {position : toast.POSITION.BOTTOM_RIGHT})
+}
+
+export const getRemoveFileFromStudent = (id , data) => async dispatch => {
+    let resp = await axios.put(`${urlApi}/missions/file-student/${id}` , data)
+    dispatch({ type : 'UPDATE_MISSION' , payload : resp.data })
+    toast.success('ציון הוגש בהצלחה !' , {position : toast.POSITION.BOTTOM_RIGHT})
 }

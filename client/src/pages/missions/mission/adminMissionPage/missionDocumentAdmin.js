@@ -4,11 +4,16 @@ import DownloadIcon from "@mui/icons-material/Download";
 import PreviewIcon from "@mui/icons-material/Preview";
 import PreviewPDF from "../../previewPDF";
 import { urlApi } from "../../../../redux/api";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useDispatch } from 'react-redux';
+import { getRemoveFileFromStudent } from '../../../../redux/actions/getMissionAction'
+import { useParams } from 'react-router-dom';
 
-const DocumentAdmin = ({ document , auth }) => {
+const DocumentAdmin = ({ document , auth , mission }) => {
     const [open, setOpen] = useState(false);
+    const { id } = useParams()
+    const dispatch = useDispatch()
 
-  
   return (
     <>
     <TableCell style={{ textAlign: "center" }}>
@@ -41,6 +46,17 @@ const DocumentAdmin = ({ document , auth }) => {
       <DownloadIcon/>
       </IconButton>
     </TableCell>
+    {
+      auth?.userType !== 'student' &&
+      <TableCell style={{ textAlign: "center" }}>
+      <IconButton
+        color="error"
+        onClick={() => dispatch(getRemoveFileFromStudent(id , {student : mission.studentId , document}))}
+      >
+      <DeleteIcon/>
+      </IconButton>
+    </TableCell>
+    }
   </>
   )
 }

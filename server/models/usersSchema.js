@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     profilePicPath : { type : String , default : null },
     password : { type : String , default : '-'},
     activated : { type : Boolean , default : false},
-    subjects : [{ subjectId : { type : String } , title : { type : String } }],
+    subjects : [{ type : String }],
     userType : { type : String},
     date: {type: String},
 })

@@ -22,6 +22,12 @@ export const getAddSubject = (data) => async dispatch => {
     }
 }
 
+export const getUpdateSubject = (id , data) => async dispatch => {
+    let resp = await axios.put(`${urlApi}/subjects/${id}` , data)
+    dispatch({ type : 'UPDATE_MISSION' , payload : resp.data })
+    toast.success('הנושא עודכן !' , {position : toast.POSITION.BOTTOM_RIGHT})
+}
+
 export const getDeleteSubject = (id) => async dispatch => {
     dispatch({ type : 'SUBJECT_LOADING' , payload : true })
     await axios.delete(`${urlApi}/subjects/${id}`)

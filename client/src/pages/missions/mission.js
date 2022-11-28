@@ -31,6 +31,8 @@ const MissionComp = ({ mission, user }) => {
     setExpiryDate(`${day}/${month}/${d.getFullYear()} , ${hour}:${minutes}`)
   }, [mission])
   
+  let getDateNow = new Date();
+  let checkUntilDate = new Date(mission?.deadlineDate) >= getDateNow;
 
   return (
     <Box
@@ -78,18 +80,27 @@ const MissionComp = ({ mission, user }) => {
       <Box
         style={{
           marginTop: "2.5rem",
-          border: "1px solid rgba(2, 136, 209, 0.7)",
+          border: checkUntilDate ? "1px solid rgba(2, 136, 209, 0.7)" : "1px solid #d32f2f",
           textAlign: "center",
           borderRadius: "2rem",
           padding : '0.5rem 0.5rem 0.5rem'
         }}
       >
-        <Typography color="#0288d1" variant="subtitle2">
-          מועד אחרון להגשה :{" "}
-          {mission?.deadlineDate !== null
-            ? expiryDate
-            : "אין"}
+        {
+            mission?.deadlineDate == null && <>
+            <Typography color="error" variant="subtitle2">
+              אין
+            </Typography>
+            </>
+        }
+        {checkUntilDate ?
+        <Typography color='primary'  variant="subtitle2">
+          מועד אחרון להגשה : {expiryDate}
+        </Typography> : <Typography color='error' variant="subtitle2">
+        זמן ההגשה תם ! 
+        { user.userType === 'student' && ' נא לפנות אל המרצה' }
         </Typography>
+        }
       </Box>
       <List style={{ textAlign: "center"  }}>
         {user?.userType !== "student" ? (
