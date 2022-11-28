@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const usersBL = require('../BL/usersBL');
+const missionBL = require('../BL/missionsBL')
 const upload = require('../uploads/profile-picture/helper-profile');
 const { createRandomBytes } = require('../mails/cryptoForMails');
 const { sendWelcomeMail } = require('../mails/Welcome-EmailBL');
@@ -60,8 +61,9 @@ router.route('/delete-profile-picture/:id').delete(async (req , res) => {
 
 router.route('/:id').delete(async (req ,res) => {
     let id = req.params.id
-        let data = await usersBL.deleteUser(id)
-        res.send(data)
+        await missionBL.deleteStudentFromMission(id)
+        // let data = await usersBL.deleteUser(id)
+        // res.send(data)
     })
 
 router.route('/verify/:id').put(async (req,res) => {

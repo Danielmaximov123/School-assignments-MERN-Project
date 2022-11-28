@@ -73,6 +73,14 @@ exports.deleteMission = (id) => {
     })
 }
 
+exports.deleteStudentFromMission = (id) => {
+    return new Promise(async (resolve , reject) => {
+        let getAllMissions = await this.getMissions()
+        
+        // let getMissionToUpdate = await this.getMission(data.missionId)
+    })
+}
+
 exports.removeFileFromMission = (data) => {
     return new Promise(async (resolve , reject) => {
         let getMissionToUpdate = await this.getMission(data.missionId)

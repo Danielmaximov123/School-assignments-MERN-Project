@@ -10,6 +10,7 @@ import { getAllMissions } from "../../redux/actions/getMissionAction";
 const Missions = ({ auth, user, users }) => {
   const missions = useSelector((state) => state.missions.missions);
   const missionLoading = useSelector((state) => state.missions.missionLoading);
+  const [missionUser, setMissionUser] = useState([])
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,12 +25,11 @@ const Missions = ({ auth, user, users }) => {
     />
   );
 
-  const [missionUser, setMissionUser] = useState([])
 
   useEffect(() => {
     let data = missions.map(i => {
       let mission = []
-      i.students.map(j => auth.userId === j.studentId && mission.push(i))
+      i.students.filter(j => auth.userId === j.studentId && mission.push(i))
       return mission
     })
     let dataCheck = data.filter(item => item.length !== 0)
@@ -39,7 +39,7 @@ const Missions = ({ auth, user, users }) => {
 
   return (
     <Box>
-      {user?.userType === "admin" || user?.userType === "teacher" ? (
+      {auth?.userType !== "student" ? (
         <>
           <Box style={{ padding: "1rem 0.2rem" }}>
             <Button
@@ -66,7 +66,7 @@ const Missions = ({ auth, user, users }) => {
               marginTop: "auto",
             }}
           >
-            {user?.userType === "admin" || user?.userType === "teacher" ? (
+            {auth?.userType !== "student" ? (
               <>
                 {missions?.map((item) => {
                   return (
@@ -87,8 +87,15 @@ const Missions = ({ auth, user, users }) => {
                 })}
               </>
             )}
-            {
+            { auth?.userType !== "student" &&
               missions.length === 0 && <Box style={{marginRight : 'auto' , marginLeft : 'auto'}}>
+                <Typography variant="h4">
+                  אין משימות
+                </Typography>
+              </Box>
+            }
+            { auth?.userType === "student" &&
+              missionUser?.length === 0 && <Box style={{marginRight : 'auto' , marginLeft : 'auto'}}>
                 <Typography variant="h4">
                   אין משימות
                 </Typography>

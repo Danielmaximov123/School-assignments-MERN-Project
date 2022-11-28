@@ -3,15 +3,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import DeleteIcon from '@mui/icons-material/Delete';
 import AdminSubject from "./adminSubject";
+import { useNavigate } from 'react-router-dom';
 
 const Subject = ({ subject , auth, users}) => {
   const missions = useSelector((state) => state.missions.missions);
-  const missionLoading = useSelector((state) => state.missions.missionLoading);
+  const navigate = useNavigate()
 
   let getMission = missions.filter(m => m.subject === subject._id)
   let getStudents = users?.map(i=> i.subjects).filter(j => j.includes(subject._id))
-
-  console.log(getStudents);
   
   return (
     <Grid
@@ -31,16 +30,16 @@ const Subject = ({ subject , auth, users}) => {
       {
         auth.userType === 'student' &&
         <>
-        <Typography variant="h6">{subject?.title}</Typography>
+      <Typography variant="h6">{subject?.title}</Typography>
       <Typography variant="subtitle1">{subject?.description}</Typography> <br/>
-      <Typography variant="subtitle2">משימות : {getMission?.length}</Typography>
+      <Chip onClick={() => navigate('/missions')} style={{margin : '0.5rem'}} label={`משימות : ${getMission?.length}`} color="success" variant="outlined" />
         </>
       }
       { auth.userType !== 'student' &&
       <>
       <AdminSubject subject={subject}/>
       <Chip style={{margin : '0.5rem'}} label={`משימות : ${getMission?.length}`} color="success" variant="outlined" />
-      <Chip style={{margin : '0.5rem'}} label={`סטודנטים : ${getStudents?.length}`} color="success" variant="outlined" />
+      <Chip onClick={() => navigate('/students')} style={{margin : '0.5rem'}} label={`סטודנטים : ${getStudents?.length}`} color="success" variant="outlined" />
       </>
       }
     </Grid>

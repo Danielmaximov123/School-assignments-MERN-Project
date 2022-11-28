@@ -9,16 +9,15 @@ const Subjects = ({ auth, user , users }) => {
   const [open, setOpen] = useState(false)
   const subjects = useSelector(state => state.subjects.subjects)
 
-  let userSubjects = subjects.map(i => {
-    let data = []
-    user?.subjects.filter(j => {
-      if(j.subjectId === i._id) {
-        data.push(i)
-      }
-    })
-    return data
-  }).filter(s => s.length !== 0 ? s[0] : !s)
+  let userSubjects = user?.subjects.map(i => {
+    let usersSubjects = []
+    subjects.filter(j => j._id.includes(i) && usersSubjects.push(j))
+    return usersSubjects
+  }).filter(s => s.length !== 0 ? s[0] : !s).map(item => {
+    return item[0]
+  })
 
+  let usersSubjects = [...new Map(userSubjects?.map((m) => [m._id, m])).values()]
   return (
 <Box>
 {auth?.userType !== 'student' ? (
@@ -37,7 +36,7 @@ const Subjects = ({ auth, user , users }) => {
               <Subject users={users} auth={auth} subject={item}/>
             </Fragment>
           )
-        }) : userSubjects[0]?.map(item => {
+        }) : usersSubjects?.map(item => {
           return(
             <Fragment key={item?._id}>
               <Subject users={users} auth={auth} subject={item}/>

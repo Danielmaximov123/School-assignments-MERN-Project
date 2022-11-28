@@ -34,11 +34,13 @@ const FormNewMission = () => {
     const handleAddNew = async (e) => {
         e.preventDefault()
         let studentsSubjects = users.map(item => {
-          return item.subjects.map(i => {
-            return { studentId : item._id , subjectId : i.subjectId }
+          let data = []
+          item.subjects.map(i => {
+            data.push(i)
           })
+          return { studentId : item._id , subjectId : data }
         }).flat(1)
-        let students = studentsSubjects.filter(item => item.subjectId === subject)
+        let students = studentsSubjects.filter(item => item.subjectId.includes(subject))
         let data = { title , description , deadlineDate ,grade : Boolean(grade) , subject , students }
         const form = new FormData();
         form.append('missionInfo' , JSON.stringify(data))

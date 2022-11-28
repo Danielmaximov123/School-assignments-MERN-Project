@@ -26,10 +26,10 @@ export const getAddUser = (data) => async dispatch => {
 }
 
 export const getDeleteUser = (id) => async dispatch => {
-    dispatch({ type : 'USERS_LOADING' , payload : true })
+    // dispatch({ type : 'USERS_LOADING' , payload : true })
     await axios.delete(`${urlApi}/users/${id}`)
-    dispatch({ type : 'DELETE_USER' , payload : id })
-    dispatch({ type : 'USERS_LOADING' , payload : false })
+    // dispatch({ type : 'DELETE_USER' , payload : id })
+    // dispatch({ type : 'USERS_LOADING' , payload : false })
 }
 
 export const getUpdateUser = (id , data) => async dispatch => {

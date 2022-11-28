@@ -87,13 +87,13 @@ const MissionComp = ({ mission, user }) => {
         }}
       >
         {
-            mission?.deadlineDate == null && <>
+            mission?.deadlineDate === null ? <>
             <Typography color="error" variant="subtitle2">
               אין
             </Typography>
-            </>
-        }
-        {checkUntilDate ?
+            </> : 
+            <>
+            {checkUntilDate ?
         <Typography color='primary'  variant="subtitle2">
           מועד אחרון להגשה : {expiryDate}
         </Typography> : <Typography color='error' variant="subtitle2">
@@ -101,6 +101,9 @@ const MissionComp = ({ mission, user }) => {
         { user.userType === 'student' && ' נא לפנות אל המרצה' }
         </Typography>
         }
+            </>
+        }
+
       </Box>
       <List style={{ textAlign: "center"  }}>
         {user?.userType !== "student" ? (

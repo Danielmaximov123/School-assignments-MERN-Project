@@ -52,7 +52,15 @@ const MissionHeader = (props) => {
             padding: "0rem 1rem",
           }}
         >
-          {!props?.mission?.deadlineDate ? (
+          {
+            props?.mission?.deadlineDate === null ? 
+            <>
+            <Typography color="error" variant="subtitle1">
+              אין זמן הגשה
+            </Typography>
+            </> :
+            <>
+            {!props?.mission?.deadlineDate ? (
             <Box style={{ textAlign: "center" }}>{progress}</Box>
           ) : (
             <>
@@ -73,6 +81,8 @@ const MissionHeader = (props) => {
               )}
             </>
           )}
+            </>
+          }
         </Box>
       </Grid>
     </Grid>
