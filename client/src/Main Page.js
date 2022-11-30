@@ -71,7 +71,7 @@ const MainPageComp = () => {
             <Route/>
             </Route>
             <Route path="/verify-account" element={!token ? <VerifyAccountComp /> : <Navigate to={'/'}/>} />
-            <Route path="/sign-in" element={!token ? <LoginComp/> : <Navigate to={'/'}/>}/>
+            <Route path="/sign-in" element={!token ? <LoginComp users={users}/> : <Navigate to={'/'}/>}/>
         </Routes>
     </div>
   )
