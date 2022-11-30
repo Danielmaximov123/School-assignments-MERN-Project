@@ -18,7 +18,6 @@ const LoginComp = ({users}) => {
         <Grid item xs style={window.screen.width >= 1000 ? {padding: '7rem 14rem 0rem 20rem'} : {padding: '3rem 14rem 0rem 14rem'}}>
         <Typography style={{fontWeight : '700'}} variant="h4" gutterBottom>התחברות לממשק</Typography>
         <LoginFormComp/>
-        {users.length}
         </Grid>
         </Grid>
     </div>
