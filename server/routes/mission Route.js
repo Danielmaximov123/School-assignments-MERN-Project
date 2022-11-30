@@ -43,7 +43,6 @@ router.route('/:id').put(async (req ,res) => {
 
 router.route('/add-file/:id').put(uploadTeachers.single('file') , async (req , res) => {
     let fileName = Buffer.from(req.file.originalname, 'latin1').toString('utf8')
-    console.log(fileName);
     let path = req.file.path.replace("\\" , '/').replace("\\" , '/')
     await missionBL.addFileToMission(req.params.id , { fileName , path })
     let data = await missionBL.getMission(req.params.id)

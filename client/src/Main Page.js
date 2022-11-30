@@ -20,6 +20,7 @@ import { getAllSubjects } from "./redux/actions/getSubjectsAction";
 import NewMission from './pages/missions/newMission';
 import MissionPage from "./pages/missions/mission/missionPage";
 import { getAllMissions } from "./redux/actions/getMissionAction";
+import jwtDecode from 'jwt-decode'
 
 const MainPageComp = () => {
     const dispatch = useDispatch()
@@ -36,13 +37,26 @@ const MainPageComp = () => {
         dispatch(getAllMissions())
     },[dispatch])
 
+    
+    let interval = setInterval(() => {
+        if(localStorage.getItem("token")) {
+            const { exp } = jwtDecode(localStorage.getItem("token"))
+            let expiresIn = exp * 1000
+            if(expiresIn < Date.now()) {
+            dispatch({ type : 'LOG_OUT_USER' })
+        }
+        } else {
+            clearInterval(interval)
+        }
+    },[10000])
+
   return (
     <div>
         {token ? <NavSection auth={auth} user={user} /> : null}
         <Routes>
             <Route index element={<Navigate to="app"/>}/>
             <Route path="/" element={token ? <Layout/> : <Navigate to={'/sign-in'}/>}>
-                <Route path="app" element={<HomePageComp/>}/>
+                <Route path="app" element={<HomePageComp user={user} auth={auth}/>}/>
                 <Route path="missions" element={<Missions auth={auth} user={user} users={users}/>}/>
                 <Route path="missions/add-new" element={<NewMission auth={auth} user={user} users={users}/>}/>
                 <Route path="missions/:id" element={<MissionPage auth={auth}/>}/>

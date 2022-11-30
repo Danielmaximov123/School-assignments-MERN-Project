@@ -76,6 +76,19 @@ exports.updateUser = (id,obj) => {
     })
 }
 
+exports.removeSubjectUser = (id) => {
+    return new Promise(async (resolve , reject) => {
+        let getAllUsers = await this.getUsers()
+        let getUsersWithSubject = getAllUsers.filter(i => i.subjects.includes(id))
+        getUsersWithSubject.map(user => {
+            let filter = user.subjects.filter(i => i !== id)
+            user.subjects = filter
+            this.updateUser(user._id , user)
+        })
+        resolve('ok')
+    })
+}
+
 exports.activateUser = (id , activated) => {
     return new Promise((resolve , reject) => {
         userSchema.findByIdAndUpdate(id, 
@@ -128,7 +141,11 @@ exports.userType = (id , userType) => {
 }
 
 exports.deleteUser = (id) => {
-    return new Promise((resolve , reject) => {
+    return new Promise(async (resolve , reject) => {
+        let getUser = await this.getUser(id)
+        if(getUser.profilePic !== null) {
+            await this.deleteUserProfile(id)
+        }
         userSchema.findByIdAndDelete(id , (err) => {
             if(err) {
                 reject(err)

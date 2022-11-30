@@ -62,7 +62,19 @@ exports.addMission = (data , files) => {
 }
 
 exports.deleteMission = (id) => {
-    return new Promise((resolve , reject) => {
+    return new Promise(async(resolve , reject) => {
+        let getMission = await this.getMission(id) 
+        if(getMission.files.length > 0) {
+            getMission.files.map(i => {
+                fs.unlink(i.path, err => { err && reject(err) })
+            })
+        }
+        getMission.students.map(i => {
+            return i.files.map(j => {
+                fs.unlink(j.path, err => { err && reject(err) })
+            })
+        })
+
         missionsSchema.findByIdAndDelete(id , (err) => {
             if(err) {
                 reject(err)
@@ -76,8 +88,36 @@ exports.deleteMission = (id) => {
 exports.deleteStudentFromMission = (id) => {
     return new Promise(async (resolve , reject) => {
         let getAllMissions = await this.getMissions()
+        let getUserMissions = getAllMissions.map(i => {
+            let missions = [i]
+            return missions
+          }).map(item => item[0]).filter((i) => {return i !== undefined})
         
-        // let getMissionToUpdate = await this.getMission(data.missionId)
+        for (let i = 0; i < getUserMissions.length; i++) {
+            const mission = getUserMissions[i];
+            for (let j = 0; j < mission.students.length; j++) {
+                const student = mission.students[j];
+                if(student.files.length !== 0) {
+                    for (let k = 0; k < student.files.length; k++) {
+                        const file = student.files[k];
+                        fs.unlink(file.path , err => {
+                            if(err) {
+                                reject(err)
+                            } 
+                        })
+                    }
+                }
+            }
+        let filterById = mission.students.filter(i => i.studentId !== id)
+        mission.students = filterById
+        missionsSchema.findByIdAndUpdate(mission._id, 
+            mission , (err) => {
+                if(err) {
+                    reject(err);
+                }
+            })
+        }
+        resolve('deleted !');
     })
 }
 

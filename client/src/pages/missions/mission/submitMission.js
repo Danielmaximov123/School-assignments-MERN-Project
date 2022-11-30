@@ -55,10 +55,12 @@ const SubmitMission = ({ studentMission , mission , auth}) => {
         הגשת משימה
       </Typography>
       {
-        !checkUntilDate ? 
+        !checkUntilDate && mission?.deadlineDate !== null ?
         <Typography color='error' variant="h6">
           עבר זמן ההגשה ! נא לפנות אל המרצה
-        </Typography> : 
+        </Typography> : null
+      } 
+        { checkUntilDate || mission?.deadlineDate === null ?
               <Box component="form" onSubmit={handleSubmit}>
               <TextField
                 style={{ marginBottom: "0.5rem", direction: "rtl" }}
@@ -116,7 +118,7 @@ const SubmitMission = ({ studentMission , mission , auth}) => {
                 ברירת מחדל
               </Button>
             </Box>
-            </Box>
+            </Box> : null
       }
     </Box>
   );

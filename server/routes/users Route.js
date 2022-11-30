@@ -62,8 +62,8 @@ router.route('/delete-profile-picture/:id').delete(async (req , res) => {
 router.route('/:id').delete(async (req ,res) => {
     let id = req.params.id
         await missionBL.deleteStudentFromMission(id)
-        // let data = await usersBL.deleteUser(id)
-        // res.send(data)
+        let data = await usersBL.deleteUser(id)
+        res.send(data)
     })
 
 router.route('/verify/:id').put(async (req,res) => {

@@ -3,33 +3,35 @@ import React from 'react'
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getDeleteUser } from './../../redux/actions/getUsersAction';
 
 const DeletePopUp = (props) => {
     const dispatch = useDispatch()
+    const users = useSelector(state => state.users.users)
+    let user = users.find(i => i._id === props.user)
 
   return (
     <>
-      <Dialog
-        open={props.open}
-        onClose={() => props.setOpen(false)}
+        <Dialog
+        open={props?.user !== null ? true : null}
+        onClose={() => props.setOpen(null)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         style={{direction : 'rtl'}}
       >
         <DialogTitle id="alert-dialog-title">
-          האם אתה רוצה למחוק את {props.user.fName} {props.user.lName} ?
+          האם אתה רוצה למחוק את {user?.fName} {user?.lName} ?
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            כל הנתונים של {props.user.fName} {props.user.lName} כולל המטלות והמידע שלו ימחקו.
+            כל הנתונים של {user?.fName} {user?.lName} כולל המטלות והמידע שלו ימחקו.
             במידה ואתם בטוחים נא ללחוץ על הכפתור "כן" במידה ומתחרטים ללחוץ "לא"
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant='contained' color='success' endIcon={<DeleteIcon/>} onClick={() => { props.setOpen(false) ; dispatch(getDeleteUser(props?.user?._id)) }}>כן</Button>
-          <Button variant='contained' color="error" endIcon={<CloseIcon/>} onClick={() => props.setOpen(false)}>לא</Button>
+          <Button variant='contained' color='success' endIcon={<DeleteIcon/>} onClick={() => { props.setOpen(null) ; dispatch(getDeleteUser(user?._id)) }}>כן</Button>
+          <Button variant='contained' color="error" endIcon={<CloseIcon/>} onClick={() => props.setOpen(null)}>לא</Button>
         </DialogActions>
       </Dialog>
     </>

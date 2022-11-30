@@ -23,7 +23,7 @@ const authReduces = (state = initialState, action) => {
                 auth : {...data1} 
             }
         case 'LOG_OUT_USER':
-            localStorage.removeItem('token')
+            localStorage.clear()
             return {
                 auth : {}
             }

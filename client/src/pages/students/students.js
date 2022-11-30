@@ -1,5 +1,5 @@
 import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, heIL } from '@mui/x-data-grid'
-import { Avatar, Box, Button, Chip, IconButton, Stack, Tooltip } from '@mui/material';
+import { Avatar, Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Modal, Stack, Tooltip } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { useEffect, useState } from 'react';
@@ -11,10 +11,13 @@ import DeletePopUp from './deletePopUp';
 import { Typography } from '@mui/material';
 import profilePicMen from "../profile/profile men.jpg";
 import profilePicWomen from "../profile/profile women.jpg";
+import CloseIcon from '@mui/icons-material/Close';
+import { urlApi } from '../../redux/api';
 
 const StudentsComp = ({users , user}) => {
   const cities = useSelector((state) => state.various.cities);
   const variousLoading = useSelector((state) => state.various.variousLoading);
+  const [popUpId, setPopUpId] = useState(null)
   const subjects = useSelector(state => state.subjects.subjects)
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -38,8 +41,9 @@ const StudentsComp = ({users , user}) => {
         let men = params.row.gender === 10 && params.row.profilePic === null ? profilePicMen : params.row.profilePic
         let women = params.row.gender === 20 && params.row.profilePic === null ? profilePicWomen : params.row.profilePic
         let pic = params.row.gender === 10 ? men : women
+        let profilePic = params?.row?.profilePic ? `${urlApi}/${params?.row?.profilePic}` :  pic
         return <Chip
-        avatar={<Avatar alt={`${params?.row?.fName || ''} ${params?.row?.lName}`} src={pic} />}
+        avatar={<Avatar alt={`${params?.row?.fName || ''} ${params?.row?.lName}`} src={profilePic} />}
         label={`${params?.row?.fName || ''} ${params?.row?.lName}`}
         variant="outlined"
       />
@@ -124,7 +128,7 @@ const StudentsComp = ({users , user}) => {
             `${title}`
           )
       },
-      renderCell: (params) => {    
+      renderCell : (params) => { 
         let subject = params?.row?.subjects
         let titles = subject.map((item , index) => 
         <Typography key={index} style={{fontSize : '0.6875rem' , textAlign : 'center'}}>
@@ -133,7 +137,7 @@ const StudentsComp = ({users , user}) => {
         )
         return (
           <Tooltip placement='top' title={titles}>
-            <Typography variant='span'>{subjects.length}</Typography>
+            <Typography variant='span'>{titles.length}</Typography>
           </Tooltip>
           )
     },
@@ -160,26 +164,29 @@ const StudentsComp = ({users , user}) => {
     },
     {
       field : '_id',
-      headerName : 'מחק',
+      headerName : 'מחיקה',
       disableExport : true,
       align : 'center',
       headerAlign : 'center',
       sortable : false,
       disableColumnMenu : true,
       width : 80,
-      renderCell: (params) => {       
+      renderCell: (params) => { 
         return (
             <>
-            <IconButton onClick={() => setOpen(true)}>
+            <IconButton onClick={(e) => {handlePop(params.id)}}>
               <DeleteIcon color='error'/>
             </IconButton>
-            <DeletePopUp open={open} setOpen={setOpen} user={params?.row}/>
             </>
         );
     },
     },
   ];
-  
+
+  const handlePop = (id) => {
+    setPopUpId(id)
+  }
+
   const CustomToolbar = () => {
     return(
       <GridToolbarContainer>
@@ -214,6 +221,13 @@ const StudentsComp = ({users , user}) => {
         disableColumnMenu
         sx={{letterSpacing : '0.1rem' }}
       /> : null
+      }
+      {
+        popUpId !== null ?
+        <>
+        <DeletePopUp setOpen={setPopUpId} user={popUpId}/>
+        </>
+        : null
       }
     </Box>
   )
