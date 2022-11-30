@@ -16,11 +16,11 @@ const FormNewSubject = ({props}) => {
         e.preventDefault()
         let data = { title , description }
         dispatch(getAddSubject(data))
-        props.setOpen(false)
+        navigate('/subjects')
     }
 
   return (
-    <Box style={{padding : '0rem 4rem'}} component='form' onSubmit={handleAddNew}>
+    <Box style={window.screen.width > 1000  ? {padding : '0rem 4rem' , width : '55%' , marginLeft : 'auto' , marginRight : 'auto' } : {padding : '0rem 4rem'}} component='form' onSubmit={handleAddNew}>
         <TextField
           style={{marginBottom : '0.5rem'}}
           required
@@ -46,7 +46,7 @@ const FormNewSubject = ({props}) => {
         />
         <Box variant="span" textAlign='center'>
             <Button style={{margin: '0.5rem'}} variant='contained' color="success" endIcon={<LibraryAddIcon/>} type="submit">הוסף נושא</Button>
-            <Button style={{margin: '0.5rem'}} variant='contained' color="error" onClick={() => props.setOpen(false)} endIcon={<CloseIcon/>} >ביטול</Button>
+            <Button style={{margin: '0.5rem'}} variant='contained' color="error" onClick={() => navigate(-1)} endIcon={<CloseIcon/>} >ביטול</Button>
         </Box>
     </Box>
   )

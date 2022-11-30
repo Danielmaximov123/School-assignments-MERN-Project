@@ -21,6 +21,7 @@ import NewMission from './pages/missions/newMission';
 import MissionPage from "./pages/missions/mission/missionPage";
 import { getAllMissions } from "./redux/actions/getMissionAction";
 import jwtDecode from 'jwt-decode'
+import NewSubject from "./pages/sucjects/newSubject";
 
 const MainPageComp = () => {
     const dispatch = useDispatch()
@@ -61,6 +62,7 @@ const MainPageComp = () => {
                 <Route path="missions/add-new" element={<NewMission auth={auth} user={user} users={users}/>}/>
                 <Route path="missions/:id" element={<MissionPage auth={auth}/>}/>
                 <Route path="subjects" element={<Subjects auth={auth} user={user} users={users}/>}/>
+                <Route path="subjects/add-new" element={<NewSubject auth={auth} user={user} users={users}/>}/>
                 <Route path="students" element={<StudentsComp user={user} users={users}/>}/>
                 <Route path="my-profile" element={<MyProfileComp auth={auth} user={user}/>}/>
                 <Route path="new-user" element={<NewUser/>}/>

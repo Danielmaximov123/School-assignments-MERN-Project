@@ -4,10 +4,11 @@ import NewSubject from "./newSubject";
 import { Fragment, useState } from "react";
 import { useSelector } from 'react-redux';
 import Subject from "./subject";
+import { useNavigate } from 'react-router-dom';
 
 const Subjects = ({ auth, user , users }) => {
-  const [open, setOpen] = useState(false)
   const subjects = useSelector(state => state.subjects.subjects)
+  const navigate = useNavigate()
 
   let userSubjects = user?.subjects.map(i => {
     let usersSubjects = []
@@ -23,9 +24,8 @@ const Subjects = ({ auth, user , users }) => {
 {auth?.userType !== 'student' ? (
         <>
         <Box style={{padding: '1rem 0.2rem'}}>
-          <Button onClick={() => setOpen(true)} endIcon={<LibraryAddIcon/>} variant="contained">נושא חדש</Button>
+          <Button onClick={() => navigate('add-new')} endIcon={<LibraryAddIcon/>} variant="contained">נושא חדש</Button>
         </Box>
-        <NewSubject open={open} setOpen={setOpen} user={user}/>
         </>
       ) : null}
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 'auto'}}>

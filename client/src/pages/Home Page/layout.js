@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const Layout = () => {
-    const drawerWidth = 300
+    const drawerWidth = window.screen.width > 1000 ? 300 : 250;
 
   return (
     <Box

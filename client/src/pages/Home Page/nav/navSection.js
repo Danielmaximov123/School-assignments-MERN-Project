@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import UserMenuComp from './userMenu';
 
-const drawerWidth = 300;
+const drawerWidth = window.screen.width > 1000 ? 300 : 250;
 
 const NavSection = ({auth , user}) => {
     const navigate = useNavigate()

@@ -17,7 +17,7 @@ const HomePageComp = ({auth , user}) => {
           <StudentHomePage auth={auth} user={user}/>
         </> :
         <>
-          <AdminHomePage/>
+          <AdminHomePage auth={auth} user={user}/>
         </>
       }
     </Box>
