@@ -1,11 +1,12 @@
 import { LoadingButton } from '@mui/lab';
-import { Box, IconButton, InputAdornment, Link, Stack, TextField } from '@mui/material'
+import { Box, IconButton, InputAdornment, Stack, TextField } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import KeyIcon from '@mui/icons-material/Key';
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLoginAuth } from '../../redux/actions/getAuthAction';
+import { Link } from 'react-router-dom';
 
 const LoginFormComp = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -46,7 +47,7 @@ const LoginFormComp = () => {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <Link variant="subtitle2" underline="hover">
+        <Link to='/forget-password' variant="subtitle2" underline="hover">
           שכחת סיסמא ?
         </Link>
       </Stack>

@@ -75,5 +75,12 @@ export const getChangePasswordUser = (id , data) => async dispatch => {
     }
 }
 
+export const getForgetPassword = (email) => async dispatch => {
+    dispatch({ type: 'USERS_LOADING' , payload : true })
+    let resp = await axios.post(`${urlApi}/users/forgot-password` , {email})
+    console.log(resp.data);
+    dispatch({ type: 'USERS_LOADING' , payload : false })
+}
+
 
 

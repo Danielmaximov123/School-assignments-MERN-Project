@@ -22,6 +22,7 @@ import MissionPage from "./pages/missions/mission/missionPage";
 import { getAllMissions } from "./redux/actions/getMissionAction";
 import jwtDecode from 'jwt-decode'
 import NewSubject from "./pages/sucjects/newSubject";
+import ForgotPassword from "./pages/auth/forgotPassword";
 
 const MainPageComp = () => {
     const dispatch = useDispatch()
@@ -72,6 +73,7 @@ const MainPageComp = () => {
             </Route>
             <Route path="/verify-account" element={!token ? <VerifyAccountComp /> : <Navigate to={'/'}/>} />
             <Route path="/sign-in" element={!token ? <LoginComp users={users}/> : <Navigate to={'/'}/>}/>
+            <Route path="/forget-password" element={!token ? <ForgotPassword users={users}/> : <Navigate to={'/'}/>}/>
         </Routes>
     </div>
   )

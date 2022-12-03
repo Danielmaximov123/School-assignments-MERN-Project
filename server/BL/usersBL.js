@@ -1,5 +1,7 @@
 const userSchema = require('../models/usersSchema')
 const fs = require('fs')
+const { sendResetPassword } = require('../mails/forgot-passwordBL')
+const { createRandomBytes } = require('../mails/cryptoForMails')
 
 exports.getUsers = () => {
     return new Promise((resolve , reject) => {
@@ -122,6 +124,23 @@ exports.updatePassword = (id , obj) => {
                     resolve({success : true , message : 'הסיסמה שונתה בהצלחה !'})
                 }
             })
+        }
+    })
+}
+
+exports.forgotPassword = (email) => {
+    return new Promise(async (resolve , reject) => {
+        const userEmail = await userSchema.findOne({email : email})
+        if(!userEmail) {
+            resolve({ success : false , message : 'דוא"ל לא קיים !' })
+        } else {
+            let randomBytes = await createRandomBytes()
+            await sendResetPassword({
+                to : userEmail.email, 
+                fullName : `${userEmail.fName} ${userEmail.lName}` , 
+                url : `http://localhost:3000/reset-password?token=${randomBytes}&id=${userEmail._id}`
+            })
+            resolve({ success : true , message : 'נמצא!' , user : userEmail })
         }
     })
 }

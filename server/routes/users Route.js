@@ -80,6 +80,12 @@ router.route('/change-password/:id').put(async (req , res) => {
     res.send(updatePassword)
 })
 
+router.route('/forgot-password').post(async (req , res) => {
+    let email = req.body.email
+    let data = await usersBL.forgotPassword(email)
+    res.send(data)
+})
+
 router.route('/userType/:id').put(async (req,res) => {
     let obj = req.body;
     let check = req.body.userType;
