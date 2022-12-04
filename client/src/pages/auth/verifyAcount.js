@@ -41,6 +41,10 @@ const VerifyAccountComp = ({users}) => {
   let user = users.find((user) => user._id === id);
 
   useEffect(() => {
+    document.title = `הפעלת חשבון - משימות הבית שלי`
+ }, [])
+
+  useEffect(() => {
     password !== confirmPassword
       ? setIncompatiblePasswords(true)
       : setIncompatiblePasswords(false);

@@ -15,6 +15,10 @@ const Missions = ({ auth, user, users }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    document.title = 'משימות - משימות הבית שלי'
+ }, [])
+
+  useEffect(() => {
     dispatch(getAllSubjects());
     dispatch(getAllMissions());
   }, [dispatch]);

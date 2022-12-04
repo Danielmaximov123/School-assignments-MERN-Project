@@ -11,8 +11,8 @@ const StudentComp = ({users}) => {
   let user = users.find(user => user._id === id)
 
   useEffect(() => {
-
-  },[user])
+    document.title = `${user.fName} ${user.lName} - משימות הבית שלי`
+ }, [user])
 
 
   return (

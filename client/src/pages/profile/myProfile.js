@@ -1,7 +1,7 @@
 import { Box, Grid, Tab, Tabs } from "@mui/material";
 import UploadPhoto from "./uploadPhoto";
 import EditProfile from "./edit profile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChangePassword from './ChangePassword';
 import { useSelector } from 'react-redux';
 
@@ -12,6 +12,10 @@ const MyProfileComp = ({ auth , user }) => {
   const handleTabChange = (event, newTabIndex) => {
     setTabIndex(newTabIndex);
   };
+
+  useEffect(() => {
+    document.title = `הפרופיל שלי - משימות הבית שלי`
+ }, [])
 
   return (
     <Box>

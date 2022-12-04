@@ -1,9 +1,10 @@
 const transporter = require('./smtpMailer')
+require('dotenv').config()
 
 exports.sendWelcomeMail = (data) => {
     return new Promise((resolve , reject) => {
         let mailOptions = {
-            from: '"מטלות בית" <No-Reply@Matalot.com>', 
+            from: `"משימות הבית שלי" <No-Reply@${process.env.host}>`, 
             to: data.to, 
             subject: `${data.fullName} ברוכים הבאים למטלות בית`, 
             html: `

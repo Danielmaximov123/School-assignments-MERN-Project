@@ -18,9 +18,12 @@ const MissionPage = ({auth}) => {
     const missions = useSelector(state => state.missions.missions)
     const missionLoading = useSelector((state) => state.missions.missionLoading)
 
-    
     let mission = missions?.find(mission => mission?._id === id)
     let subject = subjects?.find((i) => i._id === mission?.subject);
+
+    useEffect(() => {
+      document.title = `${mission?.title} - משימות הבית שלי`
+   }, [mission])
 
     
     let studentMission = []

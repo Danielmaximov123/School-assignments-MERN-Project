@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import NewSubject from "./newSubject";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import Subject from "./subject";
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,10 @@ import { useNavigate } from 'react-router-dom';
 const Subjects = ({ auth, user , users }) => {
   const subjects = useSelector(state => state.subjects.subjects)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    document.title = `נושאי לימוד - משימות הבית שלי`
+ }, [])
 
   let userSubjects = user?.subjects.map(i => {
     let usersSubjects = []

@@ -1,9 +1,10 @@
 const transporter = require('./smtpMailer')
+require('dotenv').config()
 
 exports.submitMissionTeacherEmail = (user , mission , student) => {
     return new Promise((resolve , reject) => {
         let mailOptions = {
-            from: '"מטלות בית" <No-Reply@Matalot.com>', 
+            from: `"משימות הבית שלי" <No-Reply@${process.env.host}>`, 
             to: user.email, 
             subject: `${user.fName} ${user.lName} יש ציון למטלה!`, 
             html: `

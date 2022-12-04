@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { getAddUser } from "../../redux/actions/getUsersAction";
@@ -31,8 +31,13 @@ const NewUser = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    document.title = `משתמש חדש - משימות הבית שלי`
+ }, [])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
 
     let data = {
       fName: fName.current.value,

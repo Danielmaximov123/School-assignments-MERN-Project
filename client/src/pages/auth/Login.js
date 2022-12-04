@@ -2,8 +2,14 @@ import { Grid, Typography } from "@mui/material";
 import login from "./illustration_login.png";
 import logo from "../../logo.svg";
 import LoginFormComp from "./LoginForm";
+import { useEffect } from "react";
 
 const LoginComp = () => {
+
+  useEffect(() => {
+    document.title = `התחברות למערכת - משימות הבית שלי`
+ }, [])
+
   return (
     <div>
       <Grid
@@ -60,7 +66,7 @@ const LoginComp = () => {
           }
         >
           <Typography style={{ fontWeight: "700" }} variant="h4" gutterBottom>
-            התחברות לממשק
+            התחברות למערכת
           </Typography>
           <LoginFormComp/>
         </Grid>

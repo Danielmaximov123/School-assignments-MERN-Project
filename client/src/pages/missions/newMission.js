@@ -1,9 +1,14 @@
 import { Dialog, DialogContent, DialogContentText, DialogTitle, Box, Typography } from '@mui/material';
 import FormNewMission from './formNewMission';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
 const NewMission = (props) => {
+
+  useEffect(() => {
+    document.title = 'משימה חדשה - משימות הבית שלי'
+ }, [])
   
   return (
     <Box style={{ height: 300, width: '100%' , marginLeft : 'auto' , marginRight : 'auto' }}>

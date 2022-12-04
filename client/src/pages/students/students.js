@@ -40,6 +40,10 @@ const StudentsComp = ({ users, user }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    document.title = `סטודנטים - משימות הבית שלי`
+ }, [])
+
+  useEffect(() => {
     dispatch(getAllCities());
   }, [dispatch]);
 

@@ -30,6 +30,10 @@ const ResetPassword = ({ users }) => {
   const [tokenExp, setTokenExp] = useState(false);
 
   useEffect(() => {
+    document.title = `סיסמה חדשה - משימות הבית שלי`
+ }, [])
+
+  useEffect(() => {
     password !== confirmPassword
       ? setIncompatiblePasswords(true)
       : setIncompatiblePasswords(false);
