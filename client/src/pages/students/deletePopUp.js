@@ -13,12 +13,6 @@ const DeletePopUp = (props) => {
     const users = useSelector(state => state.users.users)
     let user = users.find(i => i._id === props.user)
 
-    useEffect(() => {
-      if(!user) {
-        navigate('/students')
-      }
-    },[user])
-
   return (
     <>
         <Dialog
@@ -38,7 +32,7 @@ const DeletePopUp = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant='contained' color='success' endIcon={<DeleteIcon/>} onClick={() => { props.setOpen(null) ; dispatch(getDeleteUser(user?._id)) }}>כן</Button>
+          <Button variant='contained' color='success' endIcon={<DeleteIcon/>} onClick={() => { props.setOpen(null) ; dispatch(getDeleteUser(user?._id)); navigate('/students') }}>כן</Button>
           <Button variant='contained' color="error" endIcon={<CloseIcon/>} onClick={() => props.setOpen(null)}>לא</Button>
         </DialogActions>
       </Dialog>
