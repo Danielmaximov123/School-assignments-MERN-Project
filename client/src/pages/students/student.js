@@ -17,12 +17,12 @@ import DeletePopUp from "./deletePopUp";
 
 const StudentComp = ({ users }) => {
   const { id } = useParams();
-  let user = users.find((user) => user._id === id);
+  let user = users.find((user) => user?._id === id);
   const [popUpId, setPopUpId] = useState(null);
 
   useEffect(() => {
-    document.title = `${user.fName} ${user.lName} - משימות הבית שלי`;
-  }, [user]);
+    document.title = `${user?.fName} ${user?.lName} - משימות הבית שלי`;
+  }, []);
 
   return (
     <Box
