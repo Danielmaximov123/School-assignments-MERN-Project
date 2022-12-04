@@ -35,6 +35,7 @@ export const getDeleteUser = (id) => async dispatch => {
 export const getUpdateUser = (id , data) => async dispatch => {
     dispatch({ type : 'USERS_LOADING' , payload : true })
     let resp = await axios.put(`${urlApi}/users/${id}` , data)
+    toast.success('המשתמש עודכן' , {position : toast.POSITION.BOTTOM_RIGHT})
     dispatch({ type : 'UPDATE_USER' , payload : resp.data })
     dispatch({ type : 'USERS_LOADING' , payload : false })
 }
