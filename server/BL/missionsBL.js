@@ -4,6 +4,7 @@ const { getUser, getUsers } = require('./usersBL')
 const fs = require('fs')
 const { submitMissionEmail } = require('../mails/submit-Mission-emailBL')
 const { submitMissionTeacherEmail } = require('../mails/submit-Mission-teacher-emailBL')
+require('dotenv').config()
 
 exports.getMissions = () => {
     return new Promise((resolve , reject) => {

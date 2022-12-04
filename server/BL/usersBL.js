@@ -2,7 +2,7 @@ const userSchema = require('../models/usersSchema')
 const fs = require('fs')
 const { sendResetPassword } = require('../mails/forgot-passwordBL')
 const jwt = require("jsonwebtoken");
-const devip = require('dev-ip');
+require('dotenv').config()
 
 exports.getUsers = () => {
     return new Promise((resolve , reject) => {
@@ -158,7 +158,7 @@ exports.forgotPassword = (email) => {
             await sendResetPassword({
                 to : userEmail.email, 
                 fullName : `${userEmail.fName} ${userEmail.lName}` , 
-                url : `http://${devip()}:3000/reset-password?token=${token}&id=${userEmail._id}`
+                url : `http://${process.env.siteURL}:3000/reset-password?token=${token}&id=${userEmail._id}`
             })
             resolve({ success : true , message : 'נשלח דוא"ל לאיפוס סיסמה !' })
         }

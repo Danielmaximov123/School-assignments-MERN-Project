@@ -1,4 +1,5 @@
 const subjectSchema = require('../models/subjectSchema')
+require('dotenv').config()
 
 exports.getSubjects = () => {
     return new Promise((resolve , reject) => {

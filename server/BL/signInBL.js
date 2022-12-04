@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const userSchema = require("../models/usersSchema");
+require('dotenv').config()
 
 exports.signInUser = (data) => {
   return new Promise(async (resolve, reject) => {
