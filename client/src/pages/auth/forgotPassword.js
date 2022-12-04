@@ -11,11 +11,16 @@ import { getForgetPassword } from "../../redux/actions/getUsersAction";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch()
-  const authLoading = useSelector((state) => state.auth.authLoading);
+  const navigate = useNavigate()
+  const usersLoading = useSelector((state) => state.users.usersLoading);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(getForgetPassword(email))
+    let data = await dispatch(getForgetPassword(email))
+    console.log(data);
+    if(data.success) {
+      navigate('/sign-in')
+    }
   };
 
   return (
@@ -56,7 +61,7 @@ const ForgotPassword = () => {
         <LoadingButton
           onClick={handleSubmit}
           fullWidth
-          loading={authLoading}
+          loading={usersLoading}
           endIcon={<KeyIcon />}
           type="submit"
           loadingPosition="end"

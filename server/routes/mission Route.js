@@ -85,5 +85,11 @@ router.route('/file-student/:id').put(async(req ,res) => {
     res.send(mission)
 })
 
+router.route('/update-student-mission').post(async (req , res) => {
+    await missionBL.addStudentToMission(req.body)
+    await missionBL.deleteStudentFromMission(req.body)
+    let getAllMissions = await missionBL.getMissions()
+    res.send(getAllMissions)
+})
 
 module.exports = router

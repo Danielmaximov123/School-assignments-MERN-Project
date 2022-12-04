@@ -47,7 +47,7 @@ const LoginFormComp = () => {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <Link to='/forget-password' variant="subtitle2" underline="hover">
+        <Link to='/forgot-password' variant="subtitle2" underline="hover">
           שכחת סיסמא ?
         </Link>
       </Stack>

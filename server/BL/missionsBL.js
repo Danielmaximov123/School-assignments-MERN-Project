@@ -1,7 +1,9 @@
 const { sendMissionEmail } = require('../mails/new-Mission-emailBL')
 const missionsSchema = require('../models/missionsSchema')
-const { getUser } = require('./usersBL')
+const { getUser, getUsers } = require('./usersBL')
 const fs = require('fs')
+const { submitMissionEmail } = require('../mails/submit-Mission-emailBL')
+const { submitMissionTeacherEmail } = require('../mails/submit-Mission-teacher-emailBL')
 
 exports.getMissions = () => {
     return new Promise((resolve , reject) => {
@@ -85,7 +87,7 @@ exports.deleteMission = (id) => {
     })
 }
 
-exports.deleteStudentFromMission = (id) => {
+exports.deleteStudentFromMissions = (id) => {
     return new Promise(async (resolve , reject) => {
         let getAllMissions = await this.getMissions()
         let getUserMissions = getAllMissions.map(i => {
@@ -189,11 +191,18 @@ exports.submitMissionStudent = (id , student , data) => {
 
         missionsSchema.findByIdAndUpdate(id , {
             students : getAllStudents
-        } , (err) => {
+        } , async (err) => {
                 if(err) {
                     reject(err);
                 }
                 else {
+                    let user = await getUser(student)
+                    let users = await getUsers()
+                    let admin = users.filter(i => i.userType !== 'student')
+                    for (let i = 0; i < admin.length; i++) {
+                        const userAdmin = admin[i];
+                        await submitMissionEmail(user , userAdmin , getMission ,getStudent)
+                    }
                     resolve('Updated !!')
                 }
             })
@@ -210,11 +219,13 @@ exports.submitMissionTeacher = (id , student , data) => {
 
         missionsSchema.findByIdAndUpdate(id , {
             students : getAllStudents
-        } , (err) => {
+        } , async (err) => {
                 if(err) {
                     reject(err);
                 }
                 else {
+                    let user = await getUser(student)
+                    await submitMissionTeacherEmail(user , getMission , getStudent)
                     resolve('Updated !!')
                 }
             })
@@ -240,3 +251,48 @@ exports.removeFileFromStudent = (id , student , data) => {
             })
     })
 }
+
+exports.addStudentToMission = (data) => {
+    return new Promise(async(resolve , reject) => {
+        let getMissions = await this.getMissions()
+        let missionBySubject = getMissions.filter(i => data.subjects.includes(i.subject))
+        for (let i = 0; i < missionBySubject.length; i++) {
+            const mission = missionBySubject[i];
+            let students = mission.students
+            let getStudent = students.find(i => i.studentId === data.studentId)
+            if(!getStudent) {
+                    students.push({studentId : data.studentId})
+                    missionsSchema.findByIdAndUpdate(mission._id, 
+                        {students : students} , (err) => {
+                            if(err) {
+                                reject(err);
+                            }
+                        })
+                    }
+                }
+                resolve('Updated !!')
+    })
+}
+
+exports.deleteStudentFromMission = (data) => {
+    return new Promise(async (resolve , reject) => {
+        let getMissions = await this.getMissions()
+        let missionBySubject = getMissions.filter(i => !data.subjects.includes(i.subject))
+        for (let i = 0; i < missionBySubject.length; i++) {
+            let mission = missionBySubject[i]
+            let students = mission.students
+            let filter = students.filter(student => student.studentId !== data.studentId)
+            students = filter
+            missionsSchema.findByIdAndUpdate(mission._id, 
+                    {students : students} , (err) => {
+                        if(err) {
+                            reject(err);
+                        }
+                    })
+                    resolve('Updated !!')
+        }
+    })
+}
+
+
+

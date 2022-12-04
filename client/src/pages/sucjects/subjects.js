@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import NewSubject from "./newSubject";
 import { Fragment, useState } from "react";
@@ -43,7 +43,23 @@ const Subjects = ({ auth, user , users }) => {
             </Fragment>
           )
         })
+        
       }
+          { auth?.userType !== "student" &&
+              subjects.length === 0 && <Box style={{marginRight : 'auto' , marginLeft : 'auto'}}>
+                <Typography variant="h4">
+                  אין משימות
+                </Typography>
+              </Box>
+            }
+            { auth?.userType === "student" &&
+              usersSubjects?.length === 0 && <Box style={{marginRight : 'auto' , marginLeft : 'auto'}}>
+                <Typography variant="h4">
+                  אין נושאים
+                </Typography>
+              </Box>
+            }
+     
       </Grid>
 </Box>
   );

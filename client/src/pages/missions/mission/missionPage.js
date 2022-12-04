@@ -21,6 +21,7 @@ const MissionPage = ({auth}) => {
     
     let mission = missions?.find(mission => mission?._id === id)
     let subject = subjects?.find((i) => i._id === mission?.subject);
+
     
     let studentMission = []
     if(mission?.length !== 0) {

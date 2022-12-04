@@ -1,7 +1,8 @@
 const userSchema = require('../models/usersSchema')
 const fs = require('fs')
 const { sendResetPassword } = require('../mails/forgot-passwordBL')
-const { createRandomBytes } = require('../mails/cryptoForMails')
+const jwt = require("jsonwebtoken");
+const devip = require('dev-ip');
 
 exports.getUsers = () => {
     return new Promise((resolve , reject) => {
@@ -18,6 +19,18 @@ exports.getUsers = () => {
 exports.getUser = (id) => {
     return new Promise((resolve , reject) => {
         userSchema.findById(id , (err ,data) => {
+            if(err) {
+                reject(err)
+            } else {
+                resolve(data)
+            }
+        })
+    })
+}
+
+exports.getAdmin = (id) => {
+    return new Promise((resolve , reject) => {
+        userSchema.findOne({userType : 'admin'} , (err ,data) => {
             if(err) {
                 reject(err)
             } else {
@@ -134,13 +147,20 @@ exports.forgotPassword = (email) => {
         if(!userEmail) {
             resolve({ success : false , message : 'דוא"ל לא קיים !' })
         } else {
-            let randomBytes = await createRandomBytes()
+            const JWT_SECRET = "GWSGDRG";
+            const token = jwt.sign(
+                {},
+                JWT_SECRET , 
+                {
+                  expiresIn : '2h'
+                }
+              );
             await sendResetPassword({
                 to : userEmail.email, 
                 fullName : `${userEmail.fName} ${userEmail.lName}` , 
-                url : `http://localhost:3000/reset-password?token=${randomBytes}&id=${userEmail._id}`
+                url : `http://${devip()}:3000/reset-password?token=${token}&id=${userEmail._id}`
             })
-            resolve({ success : true , message : 'נמצא!' , user : userEmail })
+            resolve({ success : true , message : 'נשלח דוא"ל לאיפוס סיסמה !' })
         }
     })
 }

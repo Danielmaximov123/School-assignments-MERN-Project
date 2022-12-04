@@ -6,6 +6,7 @@ const upload = require('../uploads/profile-picture/helper-profile');
 const { createRandomBytes } = require('../mails/cryptoForMails');
 const { sendWelcomeMail } = require('../mails/Welcome-EmailBL');
 
+
 router.route('/').get(async (req,res) => {
     let users = await usersBL.getUsers();
     res.json(users)
@@ -51,7 +52,7 @@ router.route('/delete-profile-picture/:id').delete(async (req , res) => {
         let welcomeEmail = await sendWelcomeMail({
             to : data.newUser.email, 
             fullName : `${data.newUser.fName} ${data.newUser.lName}` , 
-            url : `http://localhost:3000/verify-account?token=${randomBytes}&id=${data.newUser.id}`
+            url : `${process.env.siteURL}/verify-account?token=${randomBytes}&id=${data.newUser.id}`
         }) 
         let obj = await usersBL.getUser(data.newUser._id)
         let user = { _id : obj._id , fName : obj.fName , lName : obj.lName, city : obj.city  , email : obj.email , phoneNumber:  obj.phoneNumber , profilePic : obj.profilePic , profilePicPath : obj.profilePicPath , gender : obj.gender , userType : obj.userType , activated : obj.activated , subjects : obj.subjects }
@@ -61,7 +62,7 @@ router.route('/delete-profile-picture/:id').delete(async (req , res) => {
 
 router.route('/:id').delete(async (req ,res) => {
     let id = req.params.id
-        await missionBL.deleteStudentFromMission(id)
+        await missionBL.deleteStudentFromMissions(id)
         let data = await usersBL.deleteUser(id)
         res.send(data)
     })

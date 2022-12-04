@@ -22,7 +22,7 @@ import ValidateComp from "./validate";
 import PasswordsForm from "./passwordsForm";
 import { getLoginAuth } from './../../redux/actions/getAuthAction';
 
-const VerifyAccountComp = () => {
+const VerifyAccountComp = ({users}) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,14 +34,11 @@ const VerifyAccountComp = () => {
   const [passwordLength, setPasswordLength] = useState(false);
   const [upperCase, setUpperCase] = useState(false);
   const [lowerCase, setLowerCase] = useState(false);
-  const users = useSelector((state) => state.users.users);
   const loading = useSelector((state) => state.users.usersLoading);
   const [timeLeft, setTimeLeft] = useState(5);
   let id = searchParams.get("id");
 
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
+  let user = users.find((user) => user._id === id);
 
   useEffect(() => {
     password !== confirmPassword
@@ -69,7 +66,6 @@ const VerifyAccountComp = () => {
     }
   });
 
-  let user = users.find((user) => user._id === id);
 
   const handleVerify = async (e) => {
     e.preventDefault();

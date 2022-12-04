@@ -23,6 +23,8 @@ import { getAllMissions } from "./redux/actions/getMissionAction";
 import jwtDecode from 'jwt-decode'
 import NewSubject from "./pages/sucjects/newSubject";
 import ForgotPassword from "./pages/auth/forgotPassword";
+import ResetPassword from "./pages/auth/resetPassword";
+import StudentComp from "./pages/students/student";
 
 const MainPageComp = () => {
     const dispatch = useDispatch()
@@ -65,15 +67,17 @@ const MainPageComp = () => {
                 <Route path="subjects" element={<Subjects auth={auth} user={user} users={users}/>}/>
                 <Route path="subjects/add-new" element={<NewSubject auth={auth} user={user} users={users}/>}/>
                 <Route path="students" element={<StudentsComp user={user} users={users}/>}/>
+                <Route path="students/:id" element={<StudentComp users={users}/>}/>
                 <Route path="my-profile" element={<MyProfileComp auth={auth} user={user}/>}/>
                 <Route path="new-user" element={<NewUser/>}/>
                 <Route path="*" element={<Navigate to='404'/>}/>
                 <Route path="404" element={<NoMatchPage/>}/>
             <Route/>
             </Route>
-            <Route path="/verify-account" element={!token ? <VerifyAccountComp /> : <Navigate to={'/'}/>} />
+            <Route path="/verify-account" element={!token ? <VerifyAccountComp users={users}/> : <Navigate to={'/'}/>} />
             <Route path="/sign-in" element={!token ? <LoginComp users={users}/> : <Navigate to={'/'}/>}/>
-            <Route path="/forget-password" element={!token ? <ForgotPassword users={users}/> : <Navigate to={'/'}/>}/>
+            <Route path="/forgot-password" element={!token ? <ForgotPassword users={users}/> : <Navigate to={'/'}/>}/>
+            <Route path="/reset-password" element={!token ? <ResetPassword users={users}/> : <Navigate to={'/'}/>}/>
         </Routes>
     </div>
   )

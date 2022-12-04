@@ -4,6 +4,7 @@ import StudentHomePage from './studentHomePage';
 import { useSelector } from 'react-redux';
 
 const HomePageComp = ({auth , user}) => {
+
   return (
     <Box>
       <Box style={{ padding: "1rem 0.2rem" }}>

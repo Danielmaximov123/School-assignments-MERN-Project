@@ -23,6 +23,7 @@ const EditProfile = ({ user }) => {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [gender, setGender] = useState()
   const cities = useSelector((state) => state.various.cities);
+  const loading = useSelector(state => state.users.usersLoading)
 
   let progress = (
     <CircularProgress
@@ -118,8 +119,9 @@ const EditProfile = ({ user }) => {
           onClick={handleSubmit}
           fullWidth
           endIcon={<SaveAsIcon />}
-          loading={false}
+          loading={loading}
           type="submit"
+          style={{margin : '1rem auto'}}
           loadingPosition="end"
           variant="contained"
         >

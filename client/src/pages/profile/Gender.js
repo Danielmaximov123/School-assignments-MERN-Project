@@ -12,7 +12,6 @@ const GenderComp = (props) => {
   return (
     <>
             <FormControl
-          style={{ marginBottom: "1rem" }}
           required
           variant="standard"
           fullWidth

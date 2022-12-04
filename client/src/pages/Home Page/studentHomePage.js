@@ -20,10 +20,10 @@ const StudentHomePage = ({auth , user}) => {
   let progress = <CircularProgress color="inherit" style={{ width: "2rem", height: "2rem" }}/>
 
   let userMissionLength = missions.map((i) => {
-    return i.students.map((j , n) => {
-        return j.studentId
+    return i?.students.map((j , n) => {
+        return j?.studentId
     })
-  }).map(i => i[0]).filter(i => i.includes(auth.userId)).length
+  }).map(i => i[0]).filter(i => i?.includes(auth.userId)).length
 
   let missionData = []
   let userMissionOpen = missions.map((i) => {
@@ -35,12 +35,12 @@ const StudentHomePage = ({auth , user}) => {
 
     let deadlineDate = `${getDay}/${getMonth}/${date.getFullYear()} , ${getHours}:${getMinutes}`
     return i.students.map((j , n) => {
-        missionData.push({ title : i.title , description : i.description , completed : j.completed , studentId : j.studentId , missionId : i._id , deadlineDate : deadlineDate , subjectId : i.subject })
-        return { completed : j.completed , studentId : j.studentId , missionId : i._id }
+        missionData.push({ title : i?.title , description : i?.description , completed : j?.completed , studentId : j?.studentId , missionId : i?._id , deadlineDate : deadlineDate , subjectId : i?.subject })
+        return { completed : j?.completed , studentId : j?.studentId , missionId : i?._id }
     })
-  }).map(i => i[0]).filter(i => i.studentId.includes(auth.userId)).filter(i => !i.completed).length
+  }).map(i => i[0]).filter(i => i?.studentId.includes(auth?.userId)).filter(i => !i?.completed).length
 
-  let userMissions = missionData?.filter(i => i.studentId.includes(auth.userId) && !i.completed)
+  let userMissions = missionData?.filter(i => i.studentId.includes(auth?.userId) && !i?.completed)
 
   let userMission = userMissions.length >= 5 ? userMissions.slice(0 , 5) : userMissions
   return (
@@ -164,7 +164,7 @@ const StudentHomePage = ({auth , user}) => {
                 transition: '0.5s'
               }}
             >
-              {usersLoading ? progress : user?.subjects?.length}
+              {usersLoading ? progress : user?.subjects?.length ? user?.subjects?.length : 0}
             </Typography>
             <Typography
               variant="body1"
@@ -184,9 +184,11 @@ const StudentHomePage = ({auth , user}) => {
       </Grid>    
     </Box>
     <Box style={{marginTop : '1.5rem' , width : window.screen.width > 1000 && '60%' , marginLeft : 'auto' , marginRight : 'auto'}}>
-    <TableContainer component={Paper}>
+    {
+      userMission?.length > 0 &&
+      <TableContainer component={Paper}>
             <Table sx={{ minWidth: 450 }} aria-label="caption table">
-            <caption style={{textAlign : 'left'}}><Link to='/missions'>לכל המשימות...</Link></caption>
+            {userMission?.length > 4 && <caption style={{textAlign : 'left'}}><Link to='/missions'>לכל המשימות...</Link></caption>}
                 <TableHead>
                     <TableRow>
                         <TableCell align="center">משימה</TableCell>
@@ -200,7 +202,7 @@ const StudentHomePage = ({auth , user}) => {
                             return <TableRow style={{cursor : 'pointer'}} onClick={() => navigate(`/missions/${row?.missionId}`)} key={index}
                             >
                                 <TableCell component="th" scope="row" align="center">{row?.title}</TableCell>
-                                <TableCell align="center">{subjects?.find(i => i._id === row?.subjectId).title}</TableCell>
+                                <TableCell align="center">{subjects?.find(i => i._id === row?.subjectId)?.title}</TableCell>
                                 <TableCell align="center">{row?.deadlineDate === '01/01/1970 , 02:00' ? 'אין' : row?.deadlineDate}</TableCell>
                             </TableRow>
                         })
@@ -208,6 +210,7 @@ const StudentHomePage = ({auth , user}) => {
                 </TableBody>
             </Table>
         </TableContainer>
+    }
     </Box>
     </Box>
   );

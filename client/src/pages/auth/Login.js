@@ -55,14 +55,14 @@ const LoginComp = () => {
           xs
           style={
             window.screen.width >= 1000
-              ? { padding: "10rem 14rem 0rem 20rem" }
-              : { padding: "7rem 8rem 0rem 8rem" }
+              ? { padding: "10rem 14rem 4rem 20rem" }
+              : { padding: "7rem 8rem 4rem 8rem" }
           }
         >
           <Typography style={{ fontWeight: "700" }} variant="h4" gutterBottom>
             התחברות לממשק
           </Typography>
-          <LoginFormComp />
+          <LoginFormComp/>
         </Grid>
       </Grid>
     </div>

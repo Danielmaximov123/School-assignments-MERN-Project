@@ -47,6 +47,11 @@ export const getUpdateMission = (id , data) => async dispatch => {
     toast.success('המשימה עודכנה !' , {position : toast.POSITION.BOTTOM_RIGHT})
 }
 
+export const getUpdateSubjectsUserMission = (data) => async dispatch => {
+    let resp = await axios.post(`${urlApi}/missions/update-student-mission` , data) 
+    dispatch({ type : 'UPDATE_MISSION' , payload : resp.data })
+}
+
 export const getRemoveFileFromMission = (data) => async dispatch => {
     await axios.put(`${urlApi}/missions/remove-file/${data.missionId}` , data)
     dispatch({ type : 'REMOVE_FILE_FROM_MISSION' , payload : data })

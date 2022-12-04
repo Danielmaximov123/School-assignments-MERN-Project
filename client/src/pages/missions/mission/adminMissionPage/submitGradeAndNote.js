@@ -32,14 +32,14 @@ const SubmitGradeAndNote = (props) => {
       setGrade(value);
     };
 
-  return (
+    return (
     <Box onSubmit={handleSubmit} component='form' style={window.screen.width > 1000 ? {direction : 'rtl' , width: '75%'} : {direction : 'rtl'}}>
         <TextField
           style={{ direction: "rtl" ,  width : '40%' }}
           fullWidth={window.screen.width < 1000}
           variant="standard"
           inputProps={{ maxLength: 130 }}
-          helperText={`130/${teacherNote?.length} תווים`}
+          helperText={`130/${!teacherNote ? 0 : teacherNote?.length} תווים`}
           value={teacherNote || ""}
           onChange={(e) => setTeacherNote(e.target.value)}
           multiline
@@ -48,7 +48,9 @@ const SubmitGradeAndNote = (props) => {
           type="text"
           label="הערות"
         />
-        <TextField
+        {
+          props.missionGrade && 
+          <TextField
         style={window.screen.width < 1000 ? {direction: "rtl"} : { direction: "rtl" ,top: '2.9rem' , marginRight: '2rem' , width : '20%'}}
         required={props.mission.gradeReq}
         fullWidth={window.screen.width < 1000}
@@ -59,6 +61,7 @@ const SubmitGradeAndNote = (props) => {
         type='number'
         InputProps={{ inputProps: { min: 0, max: 100 } }}
         />
+        }
       <LoadingButton
           loading={missionLoading}
           fullWidth={window.screen.width < 1000}

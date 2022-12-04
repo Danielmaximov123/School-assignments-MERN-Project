@@ -98,7 +98,7 @@ const MissionComp = ({ mission, user }) => {
           מועד אחרון להגשה : {expiryDate}
         </Typography> : <Typography color='error' variant="subtitle2">
         זמן ההגשה תם ! 
-        { user.userType === 'student' && ' נא לפנות אל המרצה' }
+        { user?.userType === 'student' && ' נא לפנות אל המרצה' }
         </Typography>
         }
             </>

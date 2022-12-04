@@ -9,7 +9,6 @@ const missionSchema = new mongoose.Schema({
     students : [
         {
             studentId : { type : String },
-            subjectId : [{ type : String }],
             completed : { type : Boolean , default : false },
             note : { type : String , default : null },
             submitDate : { type : Date , default : null },

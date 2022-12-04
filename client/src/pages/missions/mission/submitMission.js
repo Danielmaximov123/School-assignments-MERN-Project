@@ -17,7 +17,6 @@ const SubmitMission = ({ studentMission , mission , auth}) => {
   const [files, setFiles] = useState([]);
   const [open, setOpen] = useState(false);
 
-  console.log(studentMission);
 
   let getDateNow = new Date();
   let checkUntilDate = new Date(mission?.deadlineDate) >= getDateNow;

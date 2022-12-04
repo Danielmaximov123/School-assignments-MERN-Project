@@ -78,8 +78,15 @@ export const getChangePasswordUser = (id , data) => async dispatch => {
 export const getForgetPassword = (email) => async dispatch => {
     dispatch({ type: 'USERS_LOADING' , payload : true })
     let resp = await axios.post(`${urlApi}/users/forgot-password` , {email})
-    console.log(resp.data);
-    dispatch({ type: 'USERS_LOADING' , payload : false })
+    if(!resp.data.success) {
+        toast.error(resp.data.message , {position : toast.POSITION.BOTTOM_RIGHT})
+        dispatch({ type: 'USERS_LOADING' , payload : false })
+        return resp.data
+    } else {
+        toast.success(resp.data.message , {position : toast.POSITION.BOTTOM_RIGHT})
+        dispatch({ type: 'USERS_LOADING' , payload : false })
+        return resp.data
+    }
 }
 
 

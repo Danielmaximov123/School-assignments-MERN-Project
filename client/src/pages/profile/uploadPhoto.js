@@ -76,7 +76,7 @@ const UploadPhoto = ({ auth }) => {
        {
             showPic !== selectedFile && showPic === `${urlApi}/${user?.profilePic}` ?
             <Tooltip title="מחיקת תמונת פרופיל" placement="left" arrow>
-            <IconButton onClick={deletePhoto} style={{position: 'absolute', top: '9rem', right: '25rem'}} variant="contained" color="error">
+            <IconButton onClick={deletePhoto} style={{position: 'absolute', top: '5rem', right: '25rem'}} variant="contained" color="error">
               <DeleteIcon fontSize="2rem"/>
             </IconButton>
           </Tooltip> : null
@@ -102,7 +102,6 @@ const UploadPhoto = ({ auth }) => {
                 objectFit: "cover",
               }}
               alt="avatar"
-              // ליצור תנאי בוליאני לתמונות
               src={showPic}
               />
             </Box>

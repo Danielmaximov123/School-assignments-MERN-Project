@@ -85,7 +85,7 @@ const AccordionStudents = (props) => {
                 </Box>
                 <Box style={ {margin : '1rem'}}>
                   <Typography>הגשת ציון :</Typography>
-                    <SubmitGradeAndNote mission={props.mission} auth={props.auth} student={props.student} missionGrade={props.missionGradeReq}/>
+                    <SubmitGradeAndNote mission={props.mission} auth={props.auth} setExpanded={setExpanded} student={props.student} missionGrade={props.missionGradeReq}/>
                 </Box>
               </AccordionDetails>
             </Accordion>
