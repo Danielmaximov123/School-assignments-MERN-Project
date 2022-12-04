@@ -158,7 +158,7 @@ exports.forgotPassword = (email) => {
             await sendResetPassword({
                 to : userEmail.email, 
                 fullName : `${userEmail.fName} ${userEmail.lName}` , 
-                url : `http://${process.env.siteURL}:3000/reset-password?token=${token}&id=${userEmail._id}`
+                url : `${process.env.siteURL}}:3000/reset-password?token=${token}&id=${userEmail._id}`
             })
             resolve({ success : true , message : 'נשלח דוא"ל לאיפוס סיסמה !' })
         }

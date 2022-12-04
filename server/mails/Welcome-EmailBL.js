@@ -3,6 +3,7 @@ require('dotenv').config()
 
 exports.sendWelcomeMail = (data) => {
     return new Promise((resolve , reject) => {
+      console.log(data);
         let mailOptions = {
             from: `"משימות הבית שלי" <No-Reply@${process.env.host}>`, 
             to: data.to, 
