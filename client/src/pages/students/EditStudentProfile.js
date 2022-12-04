@@ -61,7 +61,7 @@ const handleSubmit = (e) => {
     <Box
     component="form"
     onSubmit={handleSubmit}
-    style={{padding : '3rem'}}
+    style={{padding : '3rem 3rem 0rem'}}
   >
     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
 <Grid item xs={6} >
@@ -126,7 +126,7 @@ const handleSubmit = (e) => {
       endIcon={<SaveAsIcon />}
       loading={loading}
       type="submit"
-      style={{margin : '1rem auto'}}
+      style={{margin : '1rem auto 0rem'}}
       loadingPosition="end"
       variant="contained"
     >
