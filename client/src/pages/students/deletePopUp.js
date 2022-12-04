@@ -1,15 +1,23 @@
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDeleteUser } from './../../redux/actions/getUsersAction';
+import { useNavigate } from 'react-router-dom';
 
 const DeletePopUp = (props) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const users = useSelector(state => state.users.users)
     let user = users.find(i => i._id === props.user)
+
+    useEffect(() => {
+      if(!user) {
+        navigate('/missions')
+      }
+    },[user])
 
   return (
     <>
