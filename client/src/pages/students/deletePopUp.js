@@ -15,7 +15,7 @@ const DeletePopUp = (props) => {
 
     useEffect(() => {
       if(!user) {
-        navigate('/missions')
+        navigate('/students')
       }
     },[user])
 
