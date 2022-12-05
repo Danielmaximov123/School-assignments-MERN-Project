@@ -1,7 +1,7 @@
 import { Box, Chip, CircularProgress, Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classesStyle from "./studentHomePageCss";
 import GroupIcon from '@mui/icons-material/Group';
 import SubjectIcon from "@mui/icons-material/Subject";
@@ -42,13 +42,13 @@ const AdminHomePage = ({auth , user}) => {
             sx={classesStyle.firstBox}
             onMouseEnter={() => setColor(true)}
             onMouseLeave={() => setColor(false)}
-            style={{cursor : 'pointer'}}
-            onClick={() => navigate('/students')}
           >
+
+              <Link to='/students'>
             <Box style={classesStyle.firstCardBox}>
               <GroupIcon
                 style={{ fontSize: "3rem", color: color ? "#eee" : "#242550" }}
-              />
+                />
             </Box>
             <Typography
               variant="body1"
@@ -73,26 +73,32 @@ const AdminHomePage = ({auth , user}) => {
                 color: color ? "#eee" : "#242550",
                 transition: "0.5s",
               }}
-            >
+              >
               סטודנטים
             </Typography>
+              </Link>
             {color ||
               window.screen.width < 1000 ? 
                 <Box textAlign='center' margin={1}>
+                  <Link to="/new-user">
                 <Chip
-                  onClick={() => navigate("/new-user")}
+                  clickable
                   style={{ transition: "0.5s" }}
                   variant="filled"
                   color="success"
                   label="סטודנט חדש"
-                />
+                  />
+                  </Link>
+                <Link to='/students'>
                 <Box textAlign='center'>
               <Typography variant="caption" style={{color: color ? "#eee" : "#242550", transition: "0.5s" }}>
                 (לחץ כדי לראות את כל הסטודנטים)
               </Typography>
               </Box>
-                </Box> : null
-              }
+                </Link>
+                </Box> 
+                : null
+              } 
           </Box>
         </Grid>
         <Grid item xs={2} sm={4} md={4}>
@@ -100,9 +106,8 @@ const AdminHomePage = ({auth , user}) => {
             sx={classesStyle.secondBox}
             onMouseEnter={() => setColor1(true)}
             onMouseLeave={() => setColor1(false)}
-            style={{cursor : 'pointer'}}
-            onClick={() => navigate('/missions')}
           >
+            <Link to='/missions'>
             <Box
               textAlign="center"
               style={classesStyle.secondCardBox}
@@ -137,21 +142,26 @@ const AdminHomePage = ({auth , user}) => {
             >
               משימות
             </Typography>
+            </Link>
             {color1 ||
               window.screen.width < 1000 ? 
                 <Box textAlign='center' marginTop={1}>
+                  <Link to='/missions/add-new'>
                 <Chip
-                  onClick={() => navigate("/missions/add-new")}
                   style={{ transition: "0.5s" }}
+                  clickable
                   variant="filled"
                   color="success"
                   label="משימה חדשה"
-                />
+                  />
+                  </Link>
+                  <Link to='/missions'>
                 <Box textAlign='center'>
               <Typography variant="caption" style={{color: color1 ? "#eee" : "#242550", transition: "0.5s" }}>
                 (לחץ כדי לראות את כל המשימות)
               </Typography>
               </Box>
+                  </Link>
                 </Box> : null
               }
           </Box>
@@ -161,9 +171,8 @@ const AdminHomePage = ({auth , user}) => {
             sx={classesStyle.thirdBox}
             onMouseEnter={() => setColor2(true)}
             onMouseLeave={() => setColor2(false)}
-            style={{cursor : 'pointer'}}
-            onClick={() => navigate('/subjects')}
           >
+            <Link to='/subjects'>
             <Box
               textAlign="center"
               style={classesStyle.thirdCardBox}
@@ -198,21 +207,26 @@ const AdminHomePage = ({auth , user}) => {
             >
               נושאים
             </Typography>
+            </Link>
             {color2 ||
               window.screen.width < 1000 ? 
                 <Box textAlign='center' marginTop={1}>
+                  <Link to='/subjects/add-new'>
                 <Chip
-                  onClick={() => navigate("/subjects/add-new")}
                   style={{ transition: "0.5s" }}
+                  clickable
                   variant="filled"
                   color="success"
                   label="נושא חדש"
-                />
+                  />
+                  </Link>
+                  <Link to='/subjects'>
                 <Box textAlign='center'>
               <Typography variant="caption" style={{color: color2 ? "#eee" : "#242550", transition: "0.5s" }}>
                 (לחץ כדי לראות את כל הנושאים)
               </Typography>
               </Box>
+                  </Link>
                 </Box> : null
               }
               
