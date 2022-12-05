@@ -52,7 +52,7 @@ router.route('/delete-profile-picture/:id').delete(async (req , res) => {
         await sendWelcomeMail({
             to : data.newUser.email, 
             fullName : `${data.newUser.fName} ${data.newUser.lName}` , 
-            url : `${process.env.siteURL}}/verify-account?token=${randomBytes}&id=${data.newUser.id}`
+            url : `${process.env.siteURL}/verify-account?token=${randomBytes}&id=${data.newUser.id}`
         }) 
         let obj = await usersBL.getUser(data.newUser._id)
         let user = { _id : obj._id , fName : obj.fName , lName : obj.lName, city : obj.city  , email : obj.email , phoneNumber:  obj.phoneNumber , profilePic : obj.profilePic , profilePicPath : obj.profilePicPath , gender : obj.gender , userType : obj.userType , activated : obj.activated , subjects : obj.subjects }

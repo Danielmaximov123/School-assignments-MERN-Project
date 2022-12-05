@@ -136,13 +136,13 @@ const MissionComp = ({ mission, user }) => {
           <Tooltip
             placement="bottom"
             title={
-              mission?.url !== null
+              mission?.url
                 ? "קישור לסרטון"
                 : "אין קישור לסרטון"
             }
           >
             <OndemandVideoIcon
-              sx={mission?.url !== null && { color: pink[500] }}
+              sx={mission?.url && { color: pink[500] }}
             />
           </Tooltip>
         </ListItemIcon>

@@ -39,9 +39,10 @@ const StudentPhoto = ({user}) => {
                 objectFit: "cover",
               }}
               alt="avatar"
-              src={user?.profilePic === null ? profile : `${urlApi}/${user?.profile}`}
+              src={user?.profilePic === null ? profile : `${urlApi}/${user?.profilePic}`}
               />
             </Box>
+            {console.log(user)}
           </Box>
         </Box>
     </>
