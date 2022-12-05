@@ -37,7 +37,6 @@ exports.addMission = (data , files) => {
         if(checkMission) {
             resolve({success : false , message : 'המשימה כבר קיימת לנושא לימוד...'})
         } else {
-            console.log(data);
             let newMission = new missionsSchema({
                 title: data.title,
                 description: data.description,

@@ -15,6 +15,7 @@ import GradingIcon from "@mui/icons-material/Grading";
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import { getDeleteMission, getMission } from "./../../redux/actions/getMissionAction";
 import { Link } from "react-router-dom";
+import { pink } from "@mui/material/colors";
 
 const MissionComp = ({ mission, user }) => {
   const dispatch = useDispatch();
@@ -135,13 +136,13 @@ const MissionComp = ({ mission, user }) => {
           <Tooltip
             placement="bottom"
             title={
-              mission.files.length > 0
-                ? "קבצים מצורפים במשימה"
-                : "אין קבצים מצורפים"
+              mission?.url !== null
+                ? "קישור לסרטון"
+                : "אין קישור לסרטון"
             }
           >
             <OndemandVideoIcon
-              color={mission.files.length > 0 ? "secondary" : ""}
+              sx={mission?.url !== null && { color: pink[500] }}
             />
           </Tooltip>
         </ListItemIcon>

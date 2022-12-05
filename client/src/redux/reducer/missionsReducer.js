@@ -3,6 +3,7 @@ const initialState = {
     missionLoading: false
 }
 
+
 const missionReduces = (state = initialState, action) => {
     switch (action.type) {
         case 'GET_MISSIONS':

@@ -10,6 +10,7 @@ import { getUpdateMission } from './../../../../redux/actions/getMissionAction';
 
 const MissionDetailsAdmin = (props) => {
     const [title, setTitle] = useState('')
+    const [url, setUrl] = useState(null)
     const [subject, setSubject] = useState('')
     const [description, setDescription] = useState('')
     const missionLoading = useSelector(state => state.missions.missionLoading)
@@ -29,11 +30,14 @@ const MissionDetailsAdmin = (props) => {
       if(deadlineDate === null) {
         setDeadlineDate(props?.mission?.deadlineDate)
       }
+      if(url === null) {
+        setUrl(props?.mission?.url)
+      }
     },[props])
 
     const handleSubmit = (e) => {
       e.preventDefault()
-      let data = { title , description , subject , deadlineDate}
+      let data = { title , description , subject , deadlineDate , url}
       dispatch(getUpdateMission(props?.mission?._id , data))
     }
 
@@ -42,6 +46,7 @@ const MissionDetailsAdmin = (props) => {
       setDescription(props?.mission?.description)
       setSubject(props?.mission?.subject)
       setDeadlineDate(props?.mission?.deadlineDate)
+      setUrl(props?.mission?.url)
     }
 
   return (
@@ -81,6 +86,15 @@ const MissionDetailsAdmin = (props) => {
           maxRows={4}
           type="text"
           label="הסבר על המשימה"
+        />
+        <TextField
+          style={{marginBottom : '0.5rem'}}
+          fullWidth
+          variant="standard"
+          value={url || ''}
+          onChange={e => setUrl(e.target.value)}
+          type="text"
+          label="סרטון להסבר"
         />
           <DeadilneDateAdmin deadlineDate={deadlineDate} setDeadlineDate={setDeadlineDate}/> 
         <Box style={{textAlign : 'center' , marginTop : '1rem'}}>
