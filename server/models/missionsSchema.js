@@ -4,6 +4,7 @@ const missionSchema = new mongoose.Schema({
     title : {type: String},
     description : {type: String},
     deadlineDate : { type : String , default : null },
+    url : { type : String , default : null },
     grade : { type : Boolean },
     subject : { type : String },
     students : [

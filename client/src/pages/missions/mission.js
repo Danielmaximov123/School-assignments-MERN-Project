@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import GradingIcon from "@mui/icons-material/Grading";
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import { getDeleteMission, getMission } from "./../../redux/actions/getMissionAction";
 import { Link } from "react-router-dom";
 
@@ -126,6 +127,20 @@ const MissionComp = ({ mission, user }) => {
             }
           >
             <AttachFileIcon
+              color={mission.files.length > 0 ? "secondary" : ""}
+            />
+          </Tooltip>
+        </ListItemIcon>
+        <ListItemIcon style={{minWidth: '2rem'}}>
+          <Tooltip
+            placement="bottom"
+            title={
+              mission.files.length > 0
+                ? "קבצים מצורפים במשימה"
+                : "אין קבצים מצורפים"
+            }
+          >
+            <OndemandVideoIcon
               color={mission.files.length > 0 ? "secondary" : ""}
             />
           </Tooltip>

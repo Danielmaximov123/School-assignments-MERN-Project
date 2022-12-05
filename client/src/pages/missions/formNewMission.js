@@ -17,6 +17,7 @@ const FormNewMission = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [subject, setSubject] = useState('')
+    const [url, setUrl] = useState(null)
     const [deadlineDate, setDeadlineDate] = useState(null)
     const [grade, setGrade] = useState(null)
     const [filesDoc, setFilesDoc] = useState([])
@@ -41,7 +42,7 @@ const FormNewMission = () => {
           return { studentId : item._id , subjectId : data }
         }).flat(1)
         let students = studentsSubjects.filter(item => item.subjectId.includes(subject))
-        let data = { title , description , deadlineDate ,grade : Boolean(grade) , subject , students }
+        let data = { title , description , deadlineDate , url ,grade : Boolean(grade) , subject , students }
         const form = new FormData();
         form.append('missionInfo' , JSON.stringify(data))
         for (let i = 0; i < filesDoc.length; i++) {
@@ -82,7 +83,16 @@ const FormNewMission = () => {
           type="text"
           label="הסבר על המשימה"
         />
-        
+        <TextField
+          style={{marginBottom : '0.5rem'}}
+          fullWidth
+          variant="standard"
+          value={url || ''}
+          onChange={e => setUrl(e.target.value)}
+          type="text"
+          label="סרטן הסבר"
+          helperText="סרטון שמסביר את המשימה"
+        />
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={6}>
           <SubjectSelectorMission subjects={subjects} setSubject={setSubject} subject={subject}/>
