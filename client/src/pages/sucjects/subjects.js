@@ -52,7 +52,7 @@ const Subjects = ({ auth, user , users }) => {
           { auth?.userType !== "student" &&
               subjects.length === 0 && <Box style={{marginRight : 'auto' , marginLeft : 'auto'}}>
                 <Typography variant="h4">
-                  אין משימות
+                  אין נושאים
                 </Typography>
               </Box>
             }
